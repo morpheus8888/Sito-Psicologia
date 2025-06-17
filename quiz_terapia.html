@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Interattivo: Terapia Psicologica</title>
+<style>
+    body { font-family: Arial, Helvetica, sans-serif; max-width: 900px; margin: auto; padding: 1rem; background-color: #f4f7f9; }
+    h1, h2, h3 { text-align: center; color: #2c3e50; }
+    
+    #quiz-wrapper { border: 1px solid #ddd; background: #fff; border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+
+    .progress-container { margin-bottom: 1.5rem; }
+    .progress-label { font-size: 0.9rem; color: #555; margin-bottom: 0.3rem; }
+    .progress-bar { width: 100%; background-color: #e0e0e0; border-radius: 4px; overflow: hidden; height: 18px; }
+    .progress-bar-inner { height: 100%; width: 0%; background-color: #3498db; transition: width 0.4s ease; text-align: center; color: white; font-size: 0.8rem; line-height: 18px; }
+    .progress-bar-inner.total { background-color: #2ecc71; }
+
+    .question { margin-bottom: 1.2rem; }
+    .question p { margin: .4rem 0 .8rem; font-weight: bold; font-size: 1.2em; color: #333; }
+    label { display: block; margin: .5rem 0; padding: 0.8rem; border: 1px solid #ccc; border-radius: 5px; cursor: pointer; transition: background-color 0.2s, border-color 0.2s; }
+    label:hover { background-color: #f5f5f5; }
+    input[type="radio"] { margin-right: 10px; }
+    input[type="radio"]:checked + span { font-weight: bold; }
+
+    #navigation-container { margin-top: 1.5rem; display: flex; justify-content: space-between; align-items: flex-start; }
+    .nav-column { text-align: center; }
+    .nav-buttons { display: flex; justify-content: center; }
+    .nav-button { padding: .8rem 1.5rem; font-size: 1rem; border-radius: 5px; border: none; cursor: pointer; transition: background-color 0.3s; }
+    .nav-button#next-q-btn { background-color: #27ae60; color: white; }
+    .nav-button#next-q-btn:disabled { background-color: #bdc3c7; cursor: not-allowed; }
+    .nav-button#end-q-btn { background-color: #e67e22; color: white; }
+    .nav-button#resume-q-btn { background-color: #3498db; color: white; margin: 1rem auto; display: block; }
+    .button-note { font-size: 0.8rem; color: #777; margin-top: 4px; }
+
+    #result-container { font-size: 1.1rem; }
+    .explanation { margin-top: .5rem; padding: .8rem; background: #fffbe6; border-left: 4px solid #f1c40f; }
+    .uncompleted-areas { margin-top: 1rem; padding: 1rem; background: #ecf0f1; border-radius: 5px; }
+    .uncompleted-areas h3 { margin-top: 0; }
+    ul { list-style-position: inside; padding-left: 0; }
+    
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { display: block; margin-bottom: .3rem; font-weight: bold; font-size: 0.9rem; }
+    .form-group input { width: 100%; padding: 0.6rem; font-size: 1rem; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+    #save-exit-btn { background-color: #8e44ad; color: white; margin: 1rem auto; display: block; }
+    
+    /* Admin Panel Styles */
+    #admin-panel { display: flex; gap: 2rem; }
+    #admin-user-list { width: 30%; list-style: none; padding: 0; margin: 0; }
+    #admin-user-list li { padding: 0.75rem; border: 1px solid #ddd; margin-bottom: 5px; cursor: pointer; border-radius: 4px; }
+    #admin-user-list li:hover, #admin-user-list li.active { background-color: #e9ecef; }
+    #admin-result-details { width: 70%; border-left: 1px solid #ddd; padding-left: 2rem; }
+
+</style>
+</head>
+<body>
+
+<div id="quiz-wrapper">
+    <h1>Quiz sulla Terapia Psicologica</h1>
+    <p id="intro-text" style="text-align: center;"></p>
+
+    <div id="progress-container" style="display: none;"></div>
+    <div id="quiz-container"></div>
+    <div id="navigation-container"></div>
+    <div id="result-container" style="display: none;"></div>
+    <div id="admin-panel-container" style="display: none;"></div>
+</div>
+
+
+<script>
+// --- DATA (invariata) ---
+const domande = [ ["Chi dei seguenti professionisti è un medico e può prescrivere farmaci per disturbi mentali?", ["Lo psicologo.","Lo psicoterapeuta.","Lo psichiatra.","Sia lo psicologo sia lo psicoterapeuta, se hanno completato una formazione medica aggiuntiva in psichiatria."],2,0], ["Quale titolo professionale richiede il completamento di una scuola di specializzazione in psicoterapia di almeno 4 anni?", ["Lo psichiatra.","Lo psicologo.","Lo psicoterapeuta.","Un coach motivazionale con attestato privato quadriennale."],2,0], ["Qual è la differenza principale tra uno psicologo e uno psichiatra?", ["Lo psichiatra è un medico specializzato in psichiatria (può prescrivere farmaci), mentre lo psicologo no.","Lo psicologo può prescrivere solo farmaci 'leggeri', lo psichiatra quelli più 'forti'.","Non ci sono differenze: sono termini diversi per lo stesso ruolo professionale.","Lo psicologo si occupa solo di problemi della mente, mentre lo psichiatra cura le malattie del cervello ed è l’unico a poter fare vere diagnosi cliniche importanti."],0,0], ["Chi è legalmente abilitato a esercitare la psicoterapia in Italia?", ["Chi ha studiato psicoterapia ma non psicologia.","Qualsiasi psicologo iscritto all’Albo, che ha iniziato un corso di psicoterapia.","Uno psicologo o uno psichiatra che ha conseguito una specializzazione in psicoterapia.","Un medico di base con molti anni di esperienza in salute mentale."],2,0], ["In quale dei seguenti casi è più indicato rivolgersi a uno psicologo anziché a uno psichiatra?", ["Quando non si ha voglia di affrontare un percorso psicologico","mai: è lo psicologo la figura di riferimento per la valutazione psicologica","Quando si preferisce fare solo conversazione senza farmaci.","Quando sono presenti sintomi psichici molto gravi."],1,0], ["Uno psicologo non specializzato in psicoterapia cosa NON può fare?", ["Effettuare una diagnosi psicologica.", "Svolgere attività di coaching.", "Condurre un percorso di psicoterapia strutturato.", "Fare consulenza per l'orientamento scolastico."], 2, 0], ["Quale affermazione distingue un Dottore in Tecniche Psicologiche (Albo B) da uno Psicologo (Albo A)?", ["Non c'è alcuna differenza, sono solo due nomi diversi per la stessa professione.", "Il Dottore in Tecniche Psicologiche può prescrivere farmaci, lo Psicologo no.", "Il Dottore in Tecniche Psicologiche ha una laurea triennale e opera sotto la supervisione di uno Psicologo.", "Lo Psicologo (Albo A) può fare solo diagnosi, mentre l'iscritto all'Albo B può fare anche terapia."], 2, 0], ["Quale attività rientra tipicamente nelle competenze di uno psicologo clinico?", ["Ridurre qualsiasi forma di disagio il soggetto provi.","Fornire terapia per disturbi lievi.","Dare consigli pratici.","Ascoltare in modo da permettere al paziente di sfogarsi."],0,1], ["Chi lavora fissando obiettivi concreti senza esplorare il vissuto del paziente?", ["Uno psicologo.","Uno psicoterapeuta.","Un medico.","Uno psichiatra."],2,1], ["Il coaching psicologico rispetto alla psicoterapia è...", ["un intervento focalizzato sulla risoluzione di problematiche e lacune che generano un disagio.", "un intervento basato sulla risoluzione dei problemi di coppia.", "un approccio basato sull'analisi dei rapporti relazionali del paziente.", "un intervento più lungo e approfondito."],0,1], ["Quale tra queste NON è un’attività che uno psicologo dovrebbe svolgere?", ["Aiutare concretamente il paziente dicendogli cosa fare.","Decidere quando è ora di interrompere la terapia.","Trascrivere le sedute.","Collaborare con altri professionisti."],0,1], ["Chi è la figura di riferimento per il mentoring?", ["Psichiatra", "Life Coach", "Psicologo Clinico", "Amico"], 2, 1], ["Quale figura si focalizza sulla trasmissione di esperienza e saggezza in uno specifico campo professionale o di vita?", ["Un coach", "Un mentore", "Un counselor di grande esperienza", "Psicologo clinico qualificato"], 3, 1], ["L'obiettivo principale del coaching è...", ["...analizzare il passato per risolvere traumi infantili.", "...raggiungere obiettivi specifici e misurabili di performance.", "...offrire supporto emotivo per un lutto recente.", "...curare una patologia mentale diagnosticata."], 1, 1], ["Che cos’è l’assessment psicologico?", ["Processo di valutazione del comportamento del paziente in base alla postura ed espressioni facciali.","Indagine clinica fondata sul colloquio e sull'ascolto delle problematiche del paziente.","Una singola seduta di prova gratuita per conoscere il professionista.", "Indagine clinica basata su colloquio e somministrazione di test specifici."],3,2], ["Scopo principale dell’assessment?", ["Raccogliere informazioni e pianificare intervento.","Insegnare tecniche per guarire fra una seduta e l'altra. Sviluppare capacità autonome.","Diagnosticare malattie mentali e prescrivere farmaci.","Creare un rapporto di profonda amicizia con il paziente."],0,2], ["Diagnosi non patologica significa?", ["Che il paziente non presenta nessun problema e non ha bisogno di alcun tipo di supporto.", "Assenza di disturbo mentale ma presenza di una problematica da curare.", "Sostanzialmente che il malessere del paziente è immaginario, come nell'ipocondria.", "Che il soggetto ha solo bisogno di tempo e il problema si risolverà da solo."],1,2], ["Chi può formulare una diagnosi psicologica?", ["Dottore in tecniche psicologiche iscritto all'albo B", "Un counselor professionista", "Un coach con certificazione privata", "Psicologo clinico e psicoterapeuta"], 3, 2], ["Perché distinguere tra disagio e disturbo psicopatologico?", ["Perché un disagio lieve richiede supporto breve mentre un disturbo serio necessita trattamento strutturato.","Inutile, si tratta tutto allo stesso modo.","Disturbi veri solo con farmaci.","Perché importante comprendere che la sofferenza non nasce solo dal disturbo."],3,2], ["Perché un assessment completo usa anche test standardizzati e non solo il colloquio?", ["Per rendere il processo più lungo e giustificare il costo elevato della valutazione.", "Perché i test forniscono dati oggettivi che integrano le impressioni del colloquio.", "Perché i test sono un requisito legale obbligatorio per qualsiasi tipo di valutazione.", "Per dare al paziente qualcosa da fare mentre lo psicologo scrive le sue note."], 1, 2], ["Cosa significa 'restituzione' al termine di un assessment psicologico?", ["La comunicazione e spiegazione dei risultati della valutazione al paziente.", "La restituzione dei soldi se la diagnosi non è quella che il paziente si aspettava.", "L'invio di una copia dei test grezzi al medico di base del paziente senza spiegazioni.", "Il momento in cui il paziente restituisce i protocolli dei test compilati."], 0, 2], ["Campanello d'allarme di terapeuta poco professionale?", ["Ti senti giudicato o criticato.","Provi emozioni intense parlando di traumi.","Terapeuta non mantiene riservatezza.","Nessun miglioramento dopo tre sedute."],2,3], ["Cosa fare se dopo mesi non si vedono miglioramenti?", ["Cambiare professionista immediatamente senza avvisare.", "Continuare perché ci vuole tempo, la terapia è un processo lungo e necessita spesso di anni.", "Segnalare subito il terapeuta all'Ordine degli Psicologi per incompetenza.", "Parlarne con il professionista e decidere in base a quello che dirà e farà."],3,3], ["Quale secondo te è un comportamento scorretto?", ["Terapeuta sminuisce o deride problemi.","Non assegna compiti a casa.","Non invita a esplorare ricordi dolorosi.","Il terapeuta non sembra ricordare elementi importanti."],3,3], ["Come mi deve far sentire il terapeuta?", ["Male perché è tramite il dolore che potrò affrontare il percorso terapeutico.","Protetto e al sicuro.","Che mi posso fidare di lui.","Importante."],2,3], ["Cosa è l'orientamento di un terapeuta?", ["Il metodo empatico che usa.","Il metodo che usa a livello terapeutico.","Il modo in cui si pone a livello di tono e postura.","Il modo in cui mi da i compiti da svolgere lontano dalla seduta."],1,3], ["Se un terapeuta parla spesso dei suoi problemi personali durante le tue sedute, è un segnale...", ["...di grande empatia e trasparenza, che rafforza il rapporto.", "...di un confine professionale non chiaro, potenzialmente problematico.", "...normale, serve a creare un'atmosfera più amichevole e rilassata.", "...utile, perché ti permette di dare consigli a tua volta e sentirvi alla pari."], 1, 3], ["Un terapeuta che garantisce la 'guarigione sicura' in un tempo definito sta...", ["...dimostrando grande fiducia nelle sue capacità professionali.", "...usando una tecnica di marketing per motivare il paziente.", "...seguendo un protocollo scientifico molto rigido e validato.", "...facendo una promessa non etica e irrealistica."], 3, 3], ["Come si accede allo psicologo tramite SSN?", ["Consultare medico di base che fa impegnativa.","Chiamare numero verde nazionale.","Non possibile, solo privato.","Prenotare colloquio online senza medico."],0,4], ["Caratteristica terapia tramite ASL?", ["Possibile lista d'attesa e numero limitato sedute.","Scelta libera dello psicologo ASL.","Sedute sempre gratuite e illimitate.","Psicologi pubblici non hanno abilitazione psicoterapia."],0,4], ["Vantaggio terapia privata?", ["Miglior garanzia di guarigione.","Possibilità di scegliere professionista e orari.","Efficacia garantita superiore.","Minor necessità di alleanza terapeutica."],1,4], ["Ruolo medico di base nel percorso psicologico?", ["Possibilità di avere farmici senza passare dallo psichiatra.","Avere nell'immediato qualcuno con cui parlare.","Comprendere cosa fare riducendo il rischio di commettere errori.","Formula diagnosi e imposta psicoterapia."],2,4], ["Il 'Bonus Psicologo' è una misura che permette di...", ["...avere sedute gratuite illimitate presso uno studio privato qualsiasi.", "...ottenere un contributo economico per pagare sedute con professionisti accreditati.", "...accedere direttamente a uno psichiatra senza dover prima consultare il proprio medico di base.", "...ricevere una fornitura gratuita di farmaci per l'ansia."], 1, 4], ["Un limite comune della terapia nel servizio pubblico (ASL/CSM) potrebbe essere...", ["...la qualità dei terapeuti, generalmente meno preparati dei privati.", "...l'impossibilità totale di scegliere l'orientamento del professionista.", "...la focalizzazione su percorsi brevi, non sempre adatti a bisogni complessi.", "...il costo nascosto delle sedute che viene addebitato a fine anno sulla dichiarazione dei redditi."], 2, 4], ["Se si cerca una terapia per un disturbo molto specifico (es. un disturbo di personalità raro), quale via è generalmente più indicata?", ["Il servizio pubblico, perché ha accesso a tutti i migliori specialisti del settore a livello nazionale.", "Il medico di base, che può gestire la situazione autonomamente.", "Il privato, perché permette di cercare attivamente un professionista con una formazione specifica su quel disturbo.", "Qualsiasi psicologo va bene, non serve una preparazione specifica."], 2, 4], ["Cosa si intende per centro clinico psicologico?", ["Struttura con più professionisti in collaborazione.","Centro obbligatorio di gruppo.","Ritrovo informale senza professionisti.","Studio singolo con collaborazioni rare."],0,5], ["Qual è uno dei vantaggi di un centro clinico?", ["Pagare unico onorario per più terapeuti.", "Valutazione multidimensionale.", "Diminuire la probabilità di errori diagnostici grazie alla sinergia di più professionisti.", "Poter ricevere un numero maggiore di diagnosi così da aumentare la probabilità di ricevere quella giusta."],1,5], ["Diagnosi condivisa significa?", ["Discussione tra professionisti per quadro accurato.","Coinvolge il paziente nella formulazione della valutazione e della restituzione.","Condivisione della diagnosi con familiari previo aver ricevuto il permesso.","Il terapeuta comunica la diagnosi al paziente."],1,5], ["Lo psicoterapeuta è sempre meglio dello psicologo?", ["Si perché ha più anni di studio.","Si perché ha più esperienza.","No perché ciò che conta è la specializzazione e ci sono campi dove lo psicoterapeuta non è necessariamente specializzato.","Non cambia nulla, la bravura la fa la persona."],2,5], ["In un centro multidimensionale, come viene in genere gestito un caso complesso?", ["Il paziente viene visitato da tutti i professionisti in ogni singola seduta, per massimizzare l'efficienza.", "Viene identificato un professionista referente (case manager) che coordina gli interventi degli altri specialisti.", "Il paziente deve gestire autonomamente le comunicazioni tra i vari specialisti coinvolti.", "Ogni specialista lavora in modo indipendente e poi confronta i risultati solo alla fine della valutazione."], 3, 5], ["Cos'è una 'diagnosi in equipe'?", ["Una diagnosi formulata dal paziente stesso.", "Una diagnosi discussa e validata da più professionisti.", "Una diagnosi effettuata tramite software automatici.", "La prima diagnosi che viene fatta, che non può più essere cambiata."], 1, 5], ["Qual è un rischio di una diagnosi fatta da un singolo professionista che non si confronta mai con colleghi?", ["Nessun rischio, un professionista esperto lavora sempre meglio da solo.", "Il rischio di non riuscire a stabilire una buona alleanza terapeutica.", "Che la valutazione sia influenzata da un unico punto di vista (bias).", "Il rischio che la diagnosi sia troppo lunga e complessa da spiegare al medico di base."], 2, 5], ["Qual è l'importanza della diagnosi iniziale?", ["Irrilevante, ciò che conta è il percorso.","Disfunzionale in quanto etichetta inutile.","Bassa perché tanto il percorso sarebbe dovuto avvenire ugualmente.","Fondamentale per strutturare in modo ottimale il percorso"],3,6], ["Cosa offre lo psicodiagnosta?", ["La possibilità di ricevere la diagnosi.","Nessuna differenza sono tutti diagnosti.","Può certificare la diagnosi.","Comprensione approfondita e maggiore esperienza nella somministrazione dei test."],3,6], ["Come si riconosce uno psicodiagnosta?", ["Osservandone il comportamento.","Chiedendo il curriculum.","Non serve chiederlo, sono tutti diagnosti.","Lo si capisce perché può fornire diagnosi speciali."],1,6], ["Che differenza c'è fra psicodiagnosta e psicoterapeuta?", ["Nessuna, il terapeuta è un diagnosta per eccellenza.","Nessuna perché diagnosta è sinonimo di psicologo.","La specializzazione nella conduzione di assesment evoluti che il terapeuta non possiede necessariamente.","Serve solo in ricerca."],2,6], ["La diagnosi può cambiare nel tempo?", ["No la diagnosi, se basata sui test è infallibile.","Si perché sbagliare è umano.","Si per diversi motivi, non necessariamente per errori.","Si perché diversi terapeuti forniscono diverse diagnosi."],2,6], ["Oltre a somministrare test, cosa caratterizza un bravo psicodiagnosta?", ["Calcolare i punteggi e consegnarli al paziente senza commento.", "Iniziare subito la terapia basata sui primi risultati ottenuti.", "Integrare test, colloquio e osservazione in un profilo di funzionamento completo.", "Fornire consigli pratici su come affrontare la vita di tutti i giorni."], 2, 6], ["Perché una diagnosi 'fai da te' basata su test trovati online è inaffidabile?", ["Perché i test online sono volutamente sbagliati per spingere a contattare un professionista a pagamento.", "Perché manca l'interpretazione clinica di un professionista che contestualizza i risultati.", "Perché sono test troppo difficili da compilare per una persona non esperta del settore.", "Perché i veri test psicologici sono legalmente vietati su internet."], 1, 6], ["Quale approccio si concentra principalmente sull'analisi dell'inconscio e delle esperienze infantili per comprendere i problemi attuali?", ["La terapia cognitivo-comportamentale (CBT).","La terapia sistemico-relazionale.","La psicoterapia psicodinamica o psicoanalisi.","La terapia della Gestalt, che si focalizza invece sulle dinamiche inconsce del presente."],2,7], ["Un terapeuta che assegna 'compiti a casa' per modificare attivamente pensieri e comportamenti disfunzionali segue probabilmente un approccio...", ["...sistemico-relazionale, che vede il compito come un modo per alterare le dinamiche della famiglia.","...cognitivo-comportamentale (CBT).","...psicoanalitico.","...della Gestalt."],1,7], ["Se un terapeuta si concentra sulle dinamiche della tua famiglia di origine come 'sistema' per capire il tuo disagio, quale approccio sta usando?", ["L'approccio psicoanalitico classico.","L'approccio EMDR.","L'approccio umanistico.","L'approccio sistemico-relazionale."],3,7], ["La frase 'l'intero è più della somma delle sue parti' e il focus sul 'qui e ora' sono tipici di quale scuola di pensiero?", ["Della terapia della Gestalt.","Della terapia cognitivo-comportamentale.","Della psicoanalisi che vede il passato come parte fondamentale del presente.","Della terapia strategica."],0,7], ["Qual è l'obiettivo principale della Terapia Breve Strategica?", ["Esplorare a fondo tutto il passato del paziente per trovare le cause profonde e risolvere tutti i suoi problemi.","Fornire supporto emotivo generico.","Trovare soluzioni rapide e concrete per un problema specifico.","Analizzare i sogni del paziente."],2,7], ["Un terapeuta che utilizza tecniche di diverse scuole di pensiero in modo flessibile a seconda del paziente, adotta un approccio...", ["Poco serio, perché un vero professionista si specializza in un solo metodo e applica sempre quello.","Integrato o multimodale.","Esclusivamente cognitivo.","Esclusivamente psicodinamico."],1,7], ["Un approccio che si focalizza sull'accettazione dei propri pensieri e sul vivere il momento presente, anche attraverso pratiche di mindfulness, fa parte della...", ["...terapia psicodinamica, che esplora l'inconscio.", "...terapia sistemico-relazionale, che analizza le dinamiche familiari.", "...psicoterapie di 'terza ondata' cognitivo-comportamentale (es. ACT).", "...terapia strategica, che cerca di risolvere il problema il più velocemente possibile."], 2, 7], ["L'EMDR (Eye Movement Desensitization and Reprocessing) è una tecnica specifica usata principalmente per...", ["...i conflitti di coppia.","...la crescita personale generica.","...l'elaborazione di eventi traumatici.","...migliorare le proprie abilità di comunicazione interpersonale."],2,8], ["In terapia, cosa si intende per 'metacognizione'?", ["La capacità del terapeuta di capire i pensieri del paziente.","Riflettere sui propri pensieri e stati mentali.","Un'intelligenza superiore necessaria per la guarigione.","Una tecnica di rilassamento avanzata, simile alla meditazione profonda e allo yoga."],1,8], ["Quali approcci si basano in modo prevalente sul lavoro cognitivo (su pensieri, credenze e schemi mentali)?", ["La psicoanalisi e la terapia psicodinamica.","La terapia cognitivo-comportamentale (CBT) e la terapia razionale emotiva (REBT).","La Gestalt e l'analisi transazionale, che si focalizzano di più sul vissuto emotivo e relazionale del paziente.","L'EMDR, che lavora solo sui movimenti oculari."],1,8], ["Quali tra questi approcci terapeutici pongono un'enfasi maggiore sul vissuto emotivo e sull'esperienza soggettiva nel 'qui e ora'?", ["La terapia della Gestalt e l'approccio umanistico/esistenziale.","La terapia cognitivo-comportamentale e la terapia strategica.","La psicoanalisi classica, che si concentra solo sull'interpretazione dei sogni e del passato remoto.","L'approccio puramente farmacologico gestito dallo psichiatra."],0,8], ["La 'Schema Therapy' è un approccio che...", ["...si basa esclusivamente su schemi e disegni fatti dal paziente.", "...lavora su schemi di pensiero disfunzionali radicati fin dall'infanzia.", "...insegna come organizzare meglio il proprio tempo e gli impegni (time management).", "...è un tipo di terapia di gruppo in cui si seguono schemi di interazione fissi."], 1, 8], ["L'Analisi Transazionale (AT) si basa sull'idea di analizzare...", ["...le transazioni economiche che influenzano la nostra salute mentale.", "...le transazioni comunicative attraverso gli 'stati dell'Io'.", "...la transizione graduale di una persona verso il benessere psicofisico.", "...la trascendenza dei problemi personali attraverso la meditazione."], 1, 8], ["Cosa NON è la mindfulness in un contesto terapeutico?", ["Una tecnica per svuotare completamente la mente da ogni pensiero.", "Una pratica di consapevolezza del momento presente senza giudizio.", "Un modo per osservare i propri pensieri e le proprie emozioni come eventi mentali passeggeri.", "Uno strumento per ridurre l'ansia e la reattività allo stress."], 0, 8], ["Secondo la ricerca, qual è uno dei fattori più importanti per il successo di una psicoterapia, al di là della tecnica usata?", ["La bravura del terapeuta a dare consigli pratici.","La durata del percorso, più è lungo meglio è.","La qualità dell'alleanza terapeutica.","La frequenza delle sedute settimanali."],2,9], ["Quando valuti il curriculum di un terapeuta, quale informazione è PIÙ indicativa della sua specializzazione?",["Il voto di laurea in psicologia.","La scuola di specializzazione in psicoterapia frequentata.","Il numero di convegni a cui ha partecipato come uditore.","L'università in cui si è laureato."],1,9], ["Cosa significa che un terapeuta si avvale di 'supervisione' o lavora in 'equipe'?",["Che è ancora in fase di apprendimento e non è autonomo.","Che non è sicuro del suo operato e ha bisogno costante di aiuto.","Che collabora con colleghi per garantire la qualità del lavoro, un segno di professionalità.","Che le decisioni sul paziente vengono prese da un gruppo, senza coinvolgerlo direttamente."],2,9], ["Se uno psicoterapeuta non è specializzato in psicodiagnosi, qual è la prassi più corretta per una valutazione completa?",["Evitare di fare una diagnosi e procedere con la terapia.","Basarsi unicamente sulla propria intuizione clinica.","Chiedere al paziente di autovalutarsi con test trovati online.","Collaborare con uno psicologo diagnosta per un assessment approfondito."],3,9], ["Cosa è più utile fare nelle prime sedute con un nuovo terapeuta?",["Raccontare ogni singolo dettaglio della propria vita in ordine cronologico.","Valutare se ci si sente a proprio agio e se si percepisce la possibilità di creare una buona alleanza.","Metterlo alla prova con domande tecniche per testare la sua preparazione teorica.","Aspettare che sia lui a fare tutte le domande senza prendere l'iniziativa."],1,9], ["Leggendo le recensioni online di un terapeuta, cosa è utile osservare?", ["La coerenza dei feedback e le eventuali risposte professionali alle critiche.", "Unicamente il numero di recensioni a 5 stelle, ignorando i commenti scritti.", "Le recensioni sono inaffidabili, è meglio basarsi solo sul passaparola di amici.", "Il fatto che non abbia nessuna recensione negativa, che è l'unica vera garanzia di qualità."], 0, 9], ["Se un terapeuta ha un orientamento specifico (es. solo psicoanalisi), significa che...", ["...è l'unico approccio valido e tutti gli altri sono sbagliati.", "...non sarà in grado di trattare problemi complessi o diversi tra loro.", "...utilizzerà quel modello come riferimento principale, il che può essere ottimo se è adatto al tuo problema.", "...rifiuterà di collaborare con altri professionisti come medici o psichiatri che non usano lo stesso metodo."], 2, 9] ];
+const areaMeta = [ {name:'Differenza tra psicologo, psicoterapeuta e psichiatra',count:7,explanation:'Non conosci bene le differenze tra queste figure e relative competenze.'}, {name:'Counseling, mentoring, coaching',count:7,explanation:'Confusione su cosa fa lo psicologo rispetto ad altre figure di supporto non terapeutico.'}, {name:'Assessment e diagnosi',count:7,explanation:'Scarsa comprensione del processo di assessment e diagnosi.'}, {name:'Terapeuti inadeguati',count:7,explanation:'Fatica nel riconoscere segnali di un terapeuta non adatto al tuo percorso.'}, {name:'Sistema pubblico vs privato',count:7,explanation:'Poca chiarezza su come accedere ai servizi e differenze pubblico/privato.'}, {name:'Centro clinico e diagnosi in equipe',count:7,explanation:'Non comprendi appieno i vantaggi e il funzionamento di un centro multidisciplinare.'}, {name:'Importanza dello psicologo diagnosta',count:7,explanation:'Sottovaluti l’importanza della diagnosi iniziale.'}, {name:'Principali Scuole di Psicoterapia',count:7,explanation:'Confondi i principali approcci psicoterapeutici (es. CBT, Psicoanalisi, Sistemico).'}, {name:'Approcci Specifici e Consapevolezza',count:7,explanation:'Poca chiarezza su approcci specifici (es. EMDR) e concetti come la metacognizione.'}, {name:'Come Scegliere il Terapeuta',count:7,explanation:'Hai dubbi sui criteri pratici e relazionali per scegliere il professionista giusto per te.'} ];
+
+// --- STATO DEL QUIZ ---
+let currentQuestionIndex = 0;
+let userAnswers = new Array(domande.length).fill(null);
+let debugMode = false;
+let userEmail = '';
+
+// --- ELEMENTI DEL DOM ---
+const quizContainer = document.getElementById('quiz-container');
+const navContainer = document.getElementById('navigation-container');
+const resultContainer = document.getElementById('result-container');
+const progressContainer = document.getElementById('progress-container');
+const adminContainer = document.getElementById('admin-panel-container');
+
+// --- FUNZIONI DI LOGICA ---
+
+function getScoreColor(score) { if (score >= 90) return '#2ecc71'; if (score >= 70) return '#f1c40f'; if (score >= 50) return '#e67e22'; return '#e74c3c'; }
+function precomputeAreaData() { let c = 0; areaMeta.forEach(a => { a.startIndex = c; c += a.count; a.endIndex = c - 1; }); }
+
+function updateProgress() {
+    const answeredCount = userAnswers.filter(a => a !== null).length;
+    const totalProgress = (answeredCount / domande.length) * 100;
+    document.getElementById('total-progress-bar').style.width = `${totalProgress}%`;
+    document.getElementById('total-progress-bar').textContent = `${Math.round(totalProgress)}%`;
+    document.getElementById('total-progress-label').textContent = `Progresso totale del quiz (${answeredCount} / ${domande.length})`;
+
+    const currentArea = areaMeta.find(area => currentQuestionIndex >= area.startIndex && currentQuestionIndex <= area.endIndex);
+    if (currentArea) {
+        let questionsAnsweredInArea = 0;
+        for (let i = currentArea.startIndex; i <= currentArea.endIndex; i++) { if (userAnswers[i] !== null) questionsAnsweredInArea++; }
+        const areaProgress = (questionsAnsweredInArea / currentArea.count) * 100;
+        document.getElementById('area-progress-bar').style.width = `${areaProgress}%`;
+        document.getElementById('area-progress-bar').textContent = `${Math.round(areaProgress)}%`;
+        document.getElementById('area-progress-label').textContent = `Progresso area: ${currentArea.name}`;
+    }
+}
+
+function handleAnswerSelection(event) {
+    userAnswers[currentQuestionIndex] = parseInt(event.target.value);
+    document.getElementById('next-q-btn').disabled = false;
+    updateProgress();
+}
+
+function renderQuestion() {
+    navContainer.innerHTML = '';
+    quizContainer.innerHTML = '';
+    progressContainer.style.display = 'block';
+
+    const questionData = domande[currentQuestionIndex];
+    let questionHTML = `<div class="question"><p>${currentQuestionIndex + 1}. ${questionData[0]}</p>`;
+    questionData[1].forEach((opt, i) => {
+        const isChecked = userAnswers[currentQuestionIndex] === i ? "checked" : "";
+        const debugStyle = (debugMode && i === questionData[2]) ? 'style="background-color: #a7f3d0;"' : '';
+        questionHTML += `<label ${debugStyle}><input type="radio" name="q${currentQuestionIndex}" value="${i}" ${isChecked} onchange="handleAnswerSelection(event)"> <span>${opt}</span></label>`;
+    });
+    questionHTML += `</div>`;
+    quizContainer.innerHTML = questionHTML;
+
+    const leftColumn = document.createElement('div');
+    leftColumn.className = 'nav-column';
+    const leftButtons = document.createElement('div');
+    leftButtons.className = 'nav-buttons';
+
+    if (debugMode && currentQuestionIndex > 0) {
+        const prevBtn = document.createElement('button');
+        prevBtn.id = 'prev-q-btn';
+        prevBtn.className = 'nav-button';
+        prevBtn.style.backgroundColor = '#f39c12';
+        prevBtn.style.marginRight = '10px';
+        prevBtn.textContent = 'Indietro';
+        prevBtn.onclick = previousQuestion;
+        leftButtons.appendChild(prevBtn);
+    }
+    const nextBtn = document.createElement('button');
+    nextBtn.id = 'next-q-btn';
+    nextBtn.className = 'nav-button';
+    nextBtn.textContent = 'Prossima Domanda';
+    nextBtn.onclick = nextQuestion;
+    nextBtn.disabled = userAnswers[currentQuestionIndex] === null;
+    leftButtons.appendChild(nextBtn);
+    
+    leftColumn.appendChild(leftButtons);
+    leftColumn.appendChild(Object.assign(document.createElement('div'), { className: 'button-note', textContent: '(Navigazione)' }));
+    navContainer.appendChild(leftColumn);
+    
+    const rightColumn = document.createElement('div');
+    rightColumn.className = 'nav-column';
+    if (currentQuestionIndex > 0) {
+        rightColumn.innerHTML = `<div class="nav-buttons"><button id="end-q-btn" class="nav-button" onclick="terminateAndShowResults()">Termina qui il test</button></div><div class="button-note">(Meno accurato)</div>`;
+    }
+    navContainer.appendChild(rightColumn);
+    
+    updateProgress();
+}
+
+function previousQuestion() {
+    if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        renderQuestion();
+    }
+}
+
+function nextQuestion() {
+    if (userAnswers[currentQuestionIndex] === null) return;
+    saveProgress(); 
+    currentQuestionIndex++;
+    if (currentQuestionIndex < domande.length) {
+        renderQuestion();
+    } else {
+        showResults(true);
+    }
+}
+
+function terminateAndShowResults() {
+    if (userAnswers[currentQuestionIndex] !== null) {
+        saveProgress();
+        currentQuestionIndex++;
+    }
+    showResults(false);
+}
+
+function generateResultsHTML(answers, index) {
+    let correct = 0;
+    let answeredCount = answers.filter(a => a !== null).length;
+    let areaAnswered = new Array(areaMeta.length).fill(0);
+
+    answers.forEach((answer, i) => {
+        if (answer !== null) {
+            const areaIdx = domande[i][3];
+            areaAnswered[areaIdx]++;
+            if (answer === domande[i][2]) correct++;
+        }
+    });
+
+    let areaScores = areaMeta.map((a, i) => {
+        if (areaAnswered[i] === 0) return -1;
+        let correctInArea = 0;
+        for(let qIdx = a.startIndex; qIdx <= a.endIndex; qIdx++) {
+            if (answers[qIdx] === domande[qIdx][2]) {
+                correctInArea++;
+            }
+        }
+        return Math.round((correctInArea / a.count) * 100);
+    });
+    
+    const totalScore = answeredCount > 0 ? Math.round(correct / answeredCount * 100) : 0;
+
+    let out = `<h2>Risultati del Tuo Quiz</h2><p>Hai risposto a ${answeredCount} su ${domande.length} domande, con ${correct} risposte corrette.</p>`;
+    out += `<p><strong>Punteggio complessivo (sulle risposte date): <span style="color: ${getScoreColor(totalScore)}; font-weight: bold;">${totalScore} / 100</span></strong></p>`;
+    
+    const completedAreasForDisplay = areaMeta.filter((a, i) => areaAnswered[i] === a.count);
+    if (completedAreasForDisplay.length > 0) {
+        out += '<h3>Punteggi per area (solo aree completate)</h3><ul>';
+        areaMeta.forEach((a, i) => {
+            if (areaAnswered[i] === a.count) {
+                out += `<li>${a.name}: <strong style="color: ${getScoreColor(areaScores[i])};">${areaScores[i]} / 100</strong></li>`;
+            }
+        });
+        out += '</ul>';
+    }
+
+    out += '<h3>Aree di miglioramento</h3>';
+    let anyWeakOrUncompleted = false;
+    areaMeta.forEach((a, i) => {
+        if (areaAnswered[i] === a.count && areaScores[i] < 80) {
+            anyWeakOrUncompleted = true;
+            out += `<div class="explanation"><strong>${a.name}:</strong> ${a.explanation}</div>`;
+        }
+    });
+    
+    const uncompletedAreas = [];
+    areaMeta.forEach((area, i) => {
+        if (areaAnswered[i] < area.count) uncompletedAreas.push(area.name);
+    });
+
+    if (uncompletedAreas.length > 0) {
+        anyWeakOrUncompleted = true;
+        out += `<div class="uncompleted-areas"><h3>Aree non completate</h3><p>Per un risultato più accurato, completa anche queste sezioni:</p><ul>`;
+        uncompletedAreas.forEach(name => { out += `<li>${name}</li>`; });
+        out += `</ul></div>`;
+    }
+    
+    if (!anyWeakOrUncompleted && answeredCount === domande.length) {
+        out += '<p><strong>Ottimo! Hai completato tutte le aree con un punteggio più che sufficiente.</strong></p>';
+    }
+    return out;
+}
+
+function showResults(isComplete) {
+    quizContainer.innerHTML = '';
+    navContainer.innerHTML = '';
+    progressContainer.style.display = 'none';
+    resultContainer.style.display = 'block';
+    
+    let out = generateResultsHTML(userAnswers, currentQuestionIndex);
+
+    if (currentQuestionIndex < domande.length) {
+        out += `<button id="resume-q-btn" class="nav-button" onclick="resumeQuiz()">Riprendi il quiz per completarlo</button>`;
+    }
+    out += `<button id="save-exit-btn" class="nav-button" onclick="saveProgress(true)">Salva e Torna all'inizio</button>`;
+    
+    resultContainer.innerHTML = out;
+}
+
+function resumeQuiz() {
+    resultContainer.innerHTML = '';
+    resultContainer.style.display = 'none';
+    renderQuestion();
+}
+
+function saveProgress(exitAfter = false) {
+    if (userEmail) {
+        const state = { answers: userAnswers, index: currentQuestionIndex };
+        localStorage.setItem(`quiz_progress_${userEmail}`, JSON.stringify(state));
+        if (exitAfter) {
+            alert('Progresso salvato. Puoi chiudere la pagina in sicurezza.');
+            startQuiz();
+        }
+    }
+}
+
+function loadProgress(email) {
+    const savedState = localStorage.getItem(`quiz_progress_${email}`);
+    if (savedState) {
+        const state = JSON.parse(savedState);
+        userAnswers = state.answers;
+        currentQuestionIndex = state.index;
+        return true;
+    }
+    return false;
+}
+
+function startQuizFlow(inDebugMode) {
+    userEmail = document.getElementById('user-email-input').value.trim().toLowerCase();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(userEmail)) {
+        alert('Formato email non valido. Per favore, inserisci un indirizzo email corretto (es. nome@dominio.it).');
+        return;
+    }
+
+    debugMode = inDebugMode;
+    
+    if (loadProgress(userEmail)) {
+        if (confirm('È stato trovato un progresso salvato per questa email. Vuoi riprendere da dove hai lasciato?')) {
+            renderQuestion();
+        } else {
+            userAnswers = new Array(domande.length).fill(null);
+            currentQuestionIndex = 0;
+            saveProgress();
+            renderQuestion();
+        }
+    } else {
+        userAnswers = new Array(domande.length).fill(null);
+        currentQuestionIndex = 0;
+        renderQuestion();
+    }
+}
+
+function showAdminPanel() {
+    quizContainer.innerHTML = '';
+    navContainer.innerHTML = '';
+    progressContainer.style.display = 'none';
+    resultContainer.style.display = 'none';
+    adminContainer.style.display = 'block';
+
+    let usersHTML = '<h3>Utenti Registrati (in questo browser)</h3><ul id="admin-user-list">';
+    let usersFound = false;
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key.startsWith('quiz_progress_')) {
+            usersFound = true;
+            const email = key.replace('quiz_progress_', '');
+            usersHTML += `<li onclick="showAdminResultsForUser('${email}', this)">${email}</li>`;
+        }
+    }
+    if (!usersFound) {
+        usersHTML += '<li>Nessun utente ha ancora salvato i progressi su questo browser.</li>';
+    }
+    usersHTML += '</ul>';
+
+    adminContainer.innerHTML = `
+        <button class="nav-button" style="background-color: #7f8c8d; margin-bottom: 1rem;" onclick="startQuiz()">Torna alla Home</button>
+        <div id="admin-panel">
+            <div id="admin-user-list-container">${usersHTML}</div>
+            <div id="admin-result-details"><p>Seleziona un utente per vedere i suoi risultati.</p></div>
+        </div>
+    `;
+}
+
+function showAdminResultsForUser(email, element) {
+    const savedState = JSON.parse(localStorage.getItem(`quiz_progress_${email}`));
+    const adminResultDetails = document.getElementById('admin-result-details');
+    
+    document.querySelectorAll('#admin-user-list li').forEach(li => li.classList.remove('active'));
+    element.classList.add('active');
+
+    if (savedState) {
+        adminResultDetails.innerHTML = `<h3>Risultati per: ${email}</h3>` + generateResultsHTML(savedState.answers, savedState.index);
+    } else {
+        adminResultDetails.innerHTML = `<p>Impossibile caricare i risultati per ${email}.</p>`;
+    }
+}
+
+function startQuiz() {
+    currentQuestionIndex = 0;
+    userAnswers = new Array(domande.length).fill(null);
+    userEmail = '';
+    debugMode = false;
+    resultContainer.innerHTML = '';
+    adminContainer.innerHTML = '';
+    resultContainer.style.display = 'none';
+    adminContainer.style.display = 'none';
+    navContainer.innerHTML = '';
+    progressContainer.style.display = 'none';
+    quizContainer.style.display = 'block';
+
+    document.getElementById('intro-text').innerHTML = `Rispondi alle 70 domande per scoprire quanto conosci il funzionamento della terapia psicologica e delle figure professionali. <em>Una terapia è costosa, non sprecare tempo e denaro nella scelta sbagliata del terapeuta.</em>`;
+
+    quizContainer.innerHTML = `
+        <div id="start-screen" style="text-align: center;">
+            <h2>Benvenuto nel quiz interattivo!</h2>
+            <p>Inserisci la tua email per iniziare un nuovo quiz o riprendere uno precedente. I tuoi progressi verranno salvati nel tuo browser.</p>
+            <div class="form-group" style="max-width: 400px; margin: 1rem auto;">
+                <label for="user-email-input">La tua Email</label>
+                <input type="email" id="user-email-input" placeholder="mario.rossi@esempio.com">
+            </div>
+            <div class="nav-column" style="margin: auto;"><div class="nav-buttons">
+                <button class="nav-button" style="background-color: #3498db; color: white;" onclick="startQuizFlow(false)">Inizia o Riprendi Quiz</button>
+            </div></div>
+            <div class="nav-column" style="margin: auto; margin-top: 1rem;"><div class="nav-buttons">
+                <button class="nav-button" style="background-color: #c0392b; color: white;" onclick="startQuizFlow(true)">Avvia in modalità Debug</button>
+            </div></div>
+            <hr style="margin: 2rem 0;">
+            <div class="nav-column" style="margin: auto;"><div class="nav-buttons">
+                <button class="nav-button" style="background-color: #34495e; color: white;" onclick="showAdminPanel()">Pannello Amministratore</button>
+            </div></div>
+        </div>`;
+    
+    const progressHTML = `
+        <div class="progress-label" id="area-progress-label"></div>
+        <div class="progress-bar"><div class="progress-bar-inner" id="area-progress-bar"></div></div>
+        <div class="progress-label" id="total-progress-label" style="margin-top: 0.5rem;"></div>
+        <div class="progress-bar"><div class="progress-bar-inner total" id="total-progress-bar"></div></div>`;
+    progressContainer.innerHTML = progressHTML;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    precomputeAreaData();
+    startQuiz();
+});
+
+</script>
+
+</body>
+</html>
