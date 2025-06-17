@@ -69,14 +69,25 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
-  // Reset -> menu top
-  function resetSidebar() {
-    header.classList.add("menu-top");
-    header.classList.remove("menu-sidebar", "collapsed");
-    nav.classList.remove("nav-sidebar");
-    toggleButton.style.display = "none";
-    header.style.transform = "translateY(0)";
-  }
+   // Reset -> menu top
+   function resetSidebar() {
+     header.classList.add("menu-top");
+     header.classList.remove("menu-sidebar", "collapsed");
+     nav.classList.remove("nav-sidebar");
+     toggleButton.style.display = "none";
+     header.style.transform = "translateY(0)";
+   }
+
+   // Sidebar attiva
+   function applySidebar(collapsed = false) {
+     header.classList.add("menu-sidebar");
+     header.classList.remove("menu-top");
+     nav.classList.add("nav-sidebar");
+     toggleButton.style.display = "inline-block";
+     if (collapsed) {
+       header.classList.add("collapsed");
+     }
+   }
 
   // Gestione fadeIn + sidebar
   function checkVisibility() {
@@ -118,26 +129,18 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     });
 
-    // Desktop => sidebar se scroll>100
-    if (window.innerWidth > 768) {
-      if (scrollY > 100) {
-        header.classList.add("menu-sidebar");
-        header.classList.remove("menu-top");
-        nav.classList.add("nav-sidebar");
-        toggleButton.style.display = "inline-block";
+      // Desktop => sidebar se scroll>100
+      if (window.innerWidth > 768) {
+        if (scrollY > 100) {
+          applySidebar();
+        } else {
+          resetSidebar();
+        }
       } else {
-        resetSidebar();
-      }
-    } else {
-      // Mobile => hamburger hidden
-      header.classList.remove("collapsed");
-      toggleButton.style.display = "none";
-      if (scrollY > 50) {
-        header.style.transform = "translateY(-100%)";
-      } else {
+        // Mobile => sidebar fissa e collassata
+        applySidebar(true);
         header.style.transform = "translateY(0)";
       }
-    }
   }
 
   // CLICK SU LINK => scorrimento verso la sezione corrispondente
@@ -161,13 +164,8 @@ document.querySelectorAll("nav ul li a").forEach(link => {
 
 
   // event scroll + resize
-  window.addEventListener("scroll", checkVisibility);
-  window.addEventListener("resize", () => {
-    if (window.innerWidth <= 768) {
-      resetSidebar();
-    }
-    checkVisibility();
-  });
+   window.addEventListener("scroll", checkVisibility);
+   window.addEventListener("resize", checkVisibility);
 
   // hamburger -> toggle collapsed
   toggleButton.addEventListener("click", function() {

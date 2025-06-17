@@ -4,22 +4,41 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Quiz Interattivo: Terapia Psicologica</title>
+<!-- Font Baloo 2 per coerenza con l'indice -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;800&display=swap" rel="stylesheet">
 <style>
-    body { font-family: Arial, Helvetica, sans-serif; max-width: 900px; margin: auto; padding: 1rem; background-color: #f4f7f9; }
-    h1, h2, h3 { text-align: center; color: #2c3e50; }
+    body {
+      font-family: 'Baloo 2', Arial, Helvetica, sans-serif;
+      max-width: 900px;
+      margin: auto;
+      padding: 1rem;
+      background-color: #1a1a1a;
+      color: #fff;
+    }
+    h1, h2, h3 { text-align: center; color: #fff; }
     
-    #quiz-wrapper { border: 1px solid #ddd; background: #fff; border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+    #quiz-wrapper {
+      border: 1px solid #ddd;
+      background: #000;
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      max-width: 800px;
+      margin: auto;
+    }
 
     .progress-container { margin-bottom: 1.5rem; }
-    .progress-label { font-size: 0.9rem; color: #555; margin-bottom: 0.3rem; }
+    .progress-label { font-size: 0.9rem; color: #ccc; margin-bottom: 0.3rem; }
     .progress-bar { width: 100%; background-color: #e0e0e0; border-radius: 4px; overflow: hidden; height: 18px; }
     .progress-bar-inner { height: 100%; width: 0%; background-color: #3498db; transition: width 0.4s ease; text-align: center; color: white; font-size: 0.8rem; line-height: 18px; }
     .progress-bar-inner.total { background-color: #2ecc71; }
 
     .question { margin-bottom: 1.2rem; }
-    .question p { margin: .4rem 0 .8rem; font-weight: bold; font-size: 1.2em; color: #333; }
+    .question p { margin: .4rem 0 .8rem; font-weight: bold; font-size: 1.2em; color: #fff; }
     label { display: block; margin: .5rem 0; padding: 0.8rem; border: 1px solid #ccc; border-radius: 5px; cursor: pointer; transition: background-color 0.2s, border-color 0.2s; }
-    label:hover { background-color: #f5f5f5; }
+    label:hover { background-color: #333; }
     input[type="radio"] { margin-right: 10px; }
     input[type="radio"]:checked + span { font-weight: bold; }
 
@@ -31,7 +50,7 @@
     .nav-button#next-q-btn:disabled { background-color: #bdc3c7; cursor: not-allowed; }
     .nav-button#end-q-btn { background-color: #e67e22; color: white; }
     .nav-button#resume-q-btn { background-color: #3498db; color: white; margin: 1rem auto; display: block; }
-    .button-note { font-size: 0.8rem; color: #777; margin-top: 4px; }
+    .button-note { font-size: 0.8rem; color: #bbb; margin-top: 4px; }
 
     #result-container { font-size: 1.1rem; }
     .explanation { margin-top: .5rem; padding: .8rem; background: #fffbe6; border-left: 4px solid #f1c40f; }
@@ -50,6 +69,20 @@
     #admin-user-list li { padding: 0.75rem; border: 1px solid #ddd; margin-bottom: 5px; cursor: pointer; border-radius: 4px; }
     #admin-user-list li:hover, #admin-user-list li.active { background-color: #e9ecef; }
     #admin-result-details { width: 70%; border-left: 1px solid #ddd; padding-left: 2rem; }
+
+    /* Responsive layout */
+    @media (max-width: 600px) {
+      #navigation-container {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .nav-buttons {
+        flex-direction: column;
+      }
+      .nav-button {
+        margin-bottom: 0.5rem;
+      }
+    }
 
 </style>
 </head>
