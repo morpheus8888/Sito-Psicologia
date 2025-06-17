@@ -117,7 +117,7 @@ nav ul li a {
 
 /* COLLAPSED => icone bianche testuali, no colore */
 .collapsed {
-  width: 80px !important;  /* piu largo, meglio per icone */
+  width: 60px !important; /* meno spazio per icone */
   overflow: hidden !important;
 }
 
@@ -147,6 +147,9 @@ nav ul li a {
 .collapsed nav ul li#percorsi a::before {
   content: "directions"; /* Icona Percorsi */
 }
+.collapsed nav ul li#quiz a::before {
+  content: "quiz"; /* Icona Quiz */
+}
 .collapsed nav ul li#prenotazione a::before {
   content: "event"; /* Icona Prenotazione */
 }
@@ -155,6 +158,13 @@ nav ul li a {
 }
 .collapsed nav ul li#diario a::before {
   content: "edit"; /* Icona Diario */
+}
+
+/* Margine pagina quando la sidebar e' collassata su mobile */
+@media (max-width: 768px) {
+  body.sidebar-space {
+    margin-left: 60px;
+  }
 }
 
 /* ================================
@@ -268,6 +278,13 @@ nav ul li a {
   color: #000;
   font-family: inherit;
   font-size: 18px;
+}
+
+/* Iframe del quiz */
+.quiz-frame {
+  width: 100%;
+  height: 80vh;
+  border: none;
 }
 
 /* FOOTER */
@@ -479,7 +496,7 @@ footer {
  ================================ */
 @media (max-width: 768px) {
   .toggle-button {
-    display: none !important;
+    display: inline-block !important;
   }
   .static-part {
     font-size: 36px;
@@ -499,3 +516,4 @@ footer {
     margin-left: 160px;
   }
 }
+
