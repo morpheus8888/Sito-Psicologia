@@ -147,6 +147,9 @@ nav ul li a {
 .collapsed nav ul li#percorsi a::before {
   content: "directions"; /* Icona Percorsi */
 }
+.collapsed nav ul li#quiz a::before {
+  content: "quiz"; /* Icona Quiz */
+}
 .collapsed nav ul li#prenotazione a::before {
   content: "event"; /* Icona Prenotazione */
 }
