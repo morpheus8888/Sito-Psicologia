@@ -6,6 +6,12 @@ document.addEventListener("DOMContentLoaded", function() {
   const nav            = document.querySelector("nav");
   const toggleButton   = document.querySelector(".toggle-button");
 
+  // Collassa la sidebar di default su schermi piccoli
+  if (window.innerWidth <= 768) {
+    header.classList.add("collapsed");
+    document.body.classList.add("sidebar-space");
+  }
+
   // Bolla => typed text
   const loaderDots     = document.getElementById("loaderDots");
   const typedText      = document.getElementById("typedtext");
@@ -69,13 +75,31 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
-  // Reset -> menu top
+   // Reset -> menu top
   function resetSidebar() {
     header.classList.add("menu-top");
     header.classList.remove("menu-sidebar", "collapsed");
     nav.classList.remove("nav-sidebar");
     toggleButton.style.display = "none";
     header.style.transform = "translateY(0)";
+    document.body.classList.remove("sidebar-space", "sidebar-expanded");
+  }
+
+   // Sidebar attiva
+  function applySidebar(collapsed = false) {
+    header.classList.add("menu-sidebar");
+    header.classList.remove("menu-top");
+    nav.classList.add("nav-sidebar");
+    toggleButton.style.display = "inline-block";
+    if (collapsed) {
+      header.classList.add("collapsed");
+      document.body.classList.add("sidebar-space");
+      document.body.classList.remove("sidebar-expanded");
+    } else {
+      header.classList.remove("collapsed");
+      document.body.classList.remove("sidebar-space");
+      document.body.classList.add("sidebar-expanded");
+    }
   }
 
   // Gestione fadeIn + sidebar
@@ -118,26 +142,18 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     });
 
-    // Desktop => sidebar se scroll>100
-    if (window.innerWidth > 768) {
-      if (scrollY > 100) {
-        header.classList.add("menu-sidebar");
-        header.classList.remove("menu-top");
-        nav.classList.add("nav-sidebar");
-        toggleButton.style.display = "inline-block";
+      // Desktop => sidebar se scroll>100
+      if (window.innerWidth > 768) {
+        if (scrollY > 100) {
+          applySidebar(header.classList.contains("collapsed"));
+        } else {
+          resetSidebar();
+        }
       } else {
-        resetSidebar();
-      }
-    } else {
-      // Mobile => hamburger hidden
-      header.classList.remove("collapsed");
-      toggleButton.style.display = "none";
-      if (scrollY > 50) {
-        header.style.transform = "translateY(-100%)";
-      } else {
+        // Mobile => sidebar fissa mantenendo stato corrente
+        applySidebar(header.classList.contains("collapsed"));
         header.style.transform = "translateY(0)";
       }
-    }
   }
 
   // CLICK SU LINK => scorrimento verso la sezione corrispondente
@@ -161,17 +177,14 @@ document.querySelectorAll("nav ul li a").forEach(link => {
 
 
   // event scroll + resize
-  window.addEventListener("scroll", checkVisibility);
-  window.addEventListener("resize", () => {
-    if (window.innerWidth <= 768) {
-      resetSidebar();
-    }
-    checkVisibility();
-  });
+   window.addEventListener("scroll", checkVisibility);
+   window.addEventListener("resize", checkVisibility);
 
   // hamburger -> toggle collapsed
   toggleButton.addEventListener("click", function() {
-    header.classList.toggle("collapsed");
+    const collapsed = header.classList.toggle("collapsed");
+    document.body.classList.toggle("sidebar-space", collapsed);
+    document.body.classList.toggle("sidebar-expanded", !collapsed);
   });
 
   // Avvio
