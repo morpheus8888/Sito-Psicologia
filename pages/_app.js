@@ -11,7 +11,7 @@ export default function App({ Component, pageProps }) {
   useEffect(() => {
     async function load() {
       const messages = await import(`../locales/${locale}/messages.js`);
-      i18n.load(locale, messages);
+      i18n.load(locale, messages.messages || messages.default);
       i18n.activate(locale);
     }
     load();

@@ -99,11 +99,11 @@ msgstr "Admin Panel"
 msgid "Quiz sulla Terapia Psicologica"
 msgstr "Quiz on Psychological Therapy"
 
-msgid "Progresso area: {currentArea.name}"
-msgstr "Area progress: {currentArea.name}"
+msgid "Progresso area: {name}"
+msgstr "Area progress: {name}"
 
-msgid "Progresso totale del quiz ({answeredCount} / {domande.length})"
-msgstr "Total quiz progress ({answeredCount} / {domande.length})"
+msgid "Progresso totale del quiz ({answered} / {tot})"
+msgstr "Total quiz progress ({answered} / {tot})"
 
 msgid "Indietro"
 msgstr "Back"

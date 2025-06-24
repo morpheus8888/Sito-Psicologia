@@ -237,9 +237,13 @@ export default function Quiz() {
       {page === 'quiz' && (
         <>
           <div id="progress-container" className="progress-container">
-            <div className="progress-label" id="area-progress-label">{currentArea ? i18n._(`Progresso area: ${currentArea.name}`) : ''}</div>
+            <div className="progress-label" id="area-progress-label">
+              {currentArea ? i18n._('Progresso area: {name}', { name: currentArea.name }) : ''}
+            </div>
             <div className="progress-bar"><div className="progress-bar-inner" id="area-progress-bar" style={{width:`${Math.round(areaProgress)}%`}}>{Math.round(areaProgress)}%</div></div>
-            <div className="progress-label" id="total-progress-label" style={{marginTop:'0.5rem'}}>{i18n._(`Progresso totale del quiz (${answeredCount} / ${domande.length})`)}</div>
+            <div className="progress-label" id="total-progress-label" style={{marginTop:'0.5rem'}}>
+              {i18n._('Progresso totale del quiz ({answered} / {tot})', { answered: answeredCount, tot: domande.length })}
+            </div>
             <div className="progress-bar"><div className="progress-bar-inner total" id="total-progress-bar" style={{width:`${Math.round(totalProgress)}%`}}>{Math.round(totalProgress)}%</div></div>
           </div>
           <div id="quiz-container">
