@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+function initSiteScripts() {
 
   const fadeInElements = document.querySelectorAll(".fade-in");
   const sections       = document.querySelectorAll(".section");
@@ -189,4 +189,10 @@ document.querySelectorAll("nav ul li a").forEach(link => {
 
   // Avvio
   checkVisibility();
-});
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initSiteScripts);
+} else {
+  initSiteScripts();
+}
