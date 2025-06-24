@@ -517,3 +517,5 @@ footer {
   }
 }
 
+
+.lang-switcher{position:fixed;top:10px;right:10px;background:#3498db;color:#fff;padding:0.3rem 0.6rem;border-radius:4px;z-index:1100;text-decoration:none;}

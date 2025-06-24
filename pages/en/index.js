@@ -1,15 +1,15 @@
 import Head from 'next/head';
 import Script from 'next/script';
 import dynamic from 'next/dynamic';
-import LanguageSwitcher from '../components/LanguageSwitcher';
+import LanguageSwitcher from '../../components/LanguageSwitcher';
 
-const Quiz = dynamic(() => import('../components/Quiz'), { ssr: false });
+const Quiz = dynamic(() => import('../../components/Quiz'), { ssr: false });
 
 export default function Home() {
   return (
     <>
       <Head>
-        <title>Psicologa Etica</title>
+        <title>Ethical Psychologist</title>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
@@ -25,12 +25,12 @@ export default function Home() {
         <nav>
           <ul>
             <li id="home"><a href="#home">Home</a></li>
-            <li id="servizi"><a href="#servizi">Servizi</a></li>
-            <li id="percorsi"><a href="#percorsi">Percorsi</a></li>
+            <li id="servizi"><a href="#servizi">Services</a></li>
+            <li id="percorsi"><a href="#percorsi">Paths</a></li>
             <li id="quiz"><a href="#quiz">Quiz</a></li>
-            <li id="prenotazione"><a href="#prenotazione">Prenotazione</a></li>
-            <li id="contatti"><a href="#contatti">Contatti</a></li>
-            <li id="diario"><a href="#diario">Diario</a></li>
+            <li id="prenotazione"><a href="#prenotazione">Booking</a></li>
+            <li id="contatti"><a href="#contatti">Contacts</a></li>
+            <li id="diario"><a href="#diario">Diary</a></li>
           </ul>
         </nav>
       </header>
@@ -41,11 +41,11 @@ export default function Home() {
           <div className="single-line-rotating-text">
             <span className="static-part">psicologia</span>
             <span className="rotating-part">
-              <span className="word alizarin">sorprendente.</span>
-              <span className="word wisteria">curativa.</span>
-              <span className="word peter-river">emozionante.</span>
-              <span className="word emerald">trasformativa.</span>
-              <span className="word sun-flower">potente.</span>
+              <span className="word alizarin">surprising.</span>
+              <span className="word wisteria">healing.</span>
+              <span className="word peter-river">exciting.</span>
+              <span className="word emerald">transformative.</span>
+              <span className="word sun-flower">powerful.</span>
             </span>
           </div>
         </div>
@@ -53,15 +53,15 @@ export default function Home() {
 
       <section className="section section-dark" id="servizi">
         <div className="section-content">
-          <h2 className="fade-in"><strong>Un progetto rivoluzionario</strong></h2>
-          <p className="fade-in">Scopri un nuovo modo di affrontare il benessere mentale.</p>
+          <h2 className="fade-in"><strong>A groundbreaking project</strong></h2>
+          <p className="fade-in">Discover a new way to approach mental well-being.</p>
         </div>
       </section>
 
       <section className="section section-darker" id="percorsi">
         <div className="section-content">
-          <h2 className="fade-in"><strong>Percorsi personalizzati</strong></h2>
-          <p className="fade-in">Ogni passo avanti è una conquista. Nulla è impossibile.</p>
+          <h2 className="fade-in"><strong>Personalized paths</strong></h2>
+          <p className="fade-in">Every step forward is a victory. Nothing is impossible.</p>
         </div>
       </section>
 
@@ -74,22 +74,22 @@ export default function Home() {
 
       <section className="section section-darkest" id="prenotazione">
         <div className="section-content">
-          <h2 className="fade-in"><strong>Prenota il tuo incontro</strong></h2>
-          <p className="fade-in">Prenota facilmente la tua seduta, in presenza o online.</p>
+          <h2 className="fade-in"><strong>Book your session</strong></h2>
+          <p className="fade-in">Schedule your meeting easily, in person or online.</p>
         </div>
       </section>
 
       <section className="section section-dark" id="diario">
         <div className="section-content">
-          <h2 className="fade-in"><strong>Il tuo Diario</strong></h2>
-          <textarea id="diarioTextarea" className="diario-textarea fade-in" placeholder="Scrivi qui il tuo diario..."></textarea>
+          <h2 className="fade-in"><strong>Your Journal</strong></h2>
+          <textarea id="diarioTextarea" className="diario-textarea fade-in" placeholder="Write your journal here..."></textarea>
         </div>
       </section>
 
       <section className="section section-darker" id="contatti">
         <div className="section-content">
-          <h2 className="fade-in"><strong>Contattami</strong></h2>
-          <p className="fade-in">Scorri in basso per sapere come contattarmi in qualsiasi momento.</p>
+          <h2 className="fade-in"><strong>Contact me</strong></h2>
+          <p className="fade-in">Scroll down to find out how to reach me anytime.</p>
           <div className="bubble fade-in" id="contactBubble">
             <div className="loader" id="loaderDots"></div>
             <div id="typedtext"></div>
@@ -117,7 +117,7 @@ export default function Home() {
       </section>
 
       <footer>
-        <p>&copy; 2025 Psicologa Etica. Tutti i diritti riservati.</p>
+        <p>&copy; 2025 Ethical Psychologist. All rights reserved.</p>
       </footer>
 
       <Script src="/js/script.js" strategy="afterInteractive" />
