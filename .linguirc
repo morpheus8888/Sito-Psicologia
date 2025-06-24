@@ -1,0 +1,6 @@
+{
+  "localeDir": "locales",
+  "sourceLocale": "it",
+  "locales": ["it", "en"],
+  "format": "po"
+}

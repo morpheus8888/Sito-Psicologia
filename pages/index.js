@@ -1,15 +1,18 @@
 import Head from 'next/head';
 import Script from 'next/script';
 import dynamic from 'next/dynamic';
-import LanguageSwitcher from '../components/LanguageSwitcher';
+import LanguageSwitcher from '../components/LanguageSwitcher.jsx';
+import { Trans } from "@lingui/react";
+import { useLingui } from "@lingui/react";
 
 const Quiz = dynamic(() => import('../components/Quiz'), { ssr: false });
 
 export default function Home() {
+  const { i18n } = useLingui();
   return (
     <>
       <Head>
-        <title>Psicologa Etica</title>
+        <title><Trans>Psicologa Etica</Trans></title>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
@@ -24,13 +27,13 @@ export default function Home() {
         </div>
         <nav>
           <ul>
-            <li id="home"><a href="#home">Home</a></li>
-            <li id="servizi"><a href="#servizi">Servizi</a></li>
-            <li id="percorsi"><a href="#percorsi">Percorsi</a></li>
-            <li id="quiz"><a href="#quiz">Quiz</a></li>
-            <li id="prenotazione"><a href="#prenotazione">Prenotazione</a></li>
-            <li id="contatti"><a href="#contatti">Contatti</a></li>
-            <li id="diario"><a href="#diario">Diario</a></li>
+            <li id="home"><a href="#home"><Trans>Home</Trans></a></li>
+            <li id="servizi"><a href="#servizi"><Trans>Servizi</Trans></a></li>
+            <li id="percorsi"><a href="#percorsi"><Trans>Percorsi</Trans></a></li>
+            <li id="quiz"><a href="#quiz"><Trans>Quiz</Trans></a></li>
+            <li id="prenotazione"><a href="#prenotazione"><Trans>Prenotazione</Trans></a></li>
+            <li id="contatti"><a href="#contatti"><Trans>Contatti</Trans></a></li>
+            <li id="diario"><a href="#diario"><Trans>Diario</Trans></a></li>
           </ul>
         </nav>
       </header>
@@ -39,13 +42,13 @@ export default function Home() {
         <img src="/images/background.png" alt="Hero Image" className="hero-img" />
         <div className="hero-rotating-container">
           <div className="single-line-rotating-text">
-            <span className="static-part">psicologia</span>
+            <span className="static-part"><Trans>psicologia</Trans></span>
             <span className="rotating-part">
-              <span className="word alizarin">sorprendente.</span>
-              <span className="word wisteria">curativa.</span>
-              <span className="word peter-river">emozionante.</span>
-              <span className="word emerald">trasformativa.</span>
-              <span className="word sun-flower">potente.</span>
+              <span className="word alizarin"><Trans>sorprendente.</Trans></span>
+              <span className="word wisteria"><Trans>curativa.</Trans></span>
+              <span className="word peter-river"><Trans>emozionante.</Trans></span>
+              <span className="word emerald"><Trans>trasformativa.</Trans></span>
+              <span className="word sun-flower"><Trans>potente.</Trans></span>
             </span>
           </div>
         </div>
@@ -53,8 +56,8 @@ export default function Home() {
 
       <section className="section section-dark" id="servizi">
         <div className="section-content">
-          <h2 className="fade-in"><strong>Un progetto rivoluzionario</strong></h2>
-          <p className="fade-in">Scopri un nuovo modo di affrontare il benessere mentale.</p>
+          <h2 className="fade-in"><strong><Trans>Un progetto rivoluzionario</Trans></strong></h2>
+          <p className="fade-in"><Trans>Scopri un nuovo modo di affrontare il benessere mentale.</Trans></p>
         </div>
       </section>
 
@@ -67,7 +70,7 @@ export default function Home() {
 
       <section className="section section-dark" id="quiz">
         <div className="section-content">
-          <h2 className="fade-in"><strong>Quiz</strong></h2>
+          <h2 className="fade-in"><strong><Trans>Quiz</Trans></strong></h2>
           <Quiz />
         </div>
       </section>
@@ -82,14 +85,14 @@ export default function Home() {
       <section className="section section-dark" id="diario">
         <div className="section-content">
           <h2 className="fade-in"><strong>Il tuo Diario</strong></h2>
-          <textarea id="diarioTextarea" className="diario-textarea fade-in" placeholder="Scrivi qui il tuo diario..."></textarea>
+          <textarea id="diarioTextarea" className="diario-textarea fade-in" placeholder={i18n._("Scrivi qui il tuo diario...")}></textarea>
         </div>
       </section>
 
       <section className="section section-darker" id="contatti">
         <div className="section-content">
-          <h2 className="fade-in"><strong>Contattami</strong></h2>
-          <p className="fade-in">Scorri in basso per sapere come contattarmi in qualsiasi momento.</p>
+          <h2 className="fade-in"><strong><Trans>Contattami</Trans></strong></h2>
+          <p className="fade-in"><Trans>Scorri in basso per sapere come contattarmi in qualsiasi momento.</Trans></p>
           <div className="bubble fade-in" id="contactBubble">
             <div className="loader" id="loaderDots"></div>
             <div id="typedtext"></div>
@@ -117,7 +120,7 @@ export default function Home() {
       </section>
 
       <footer>
-        <p>&copy; 2025 Psicologa Etica. Tutti i diritti riservati.</p>
+        <p>&copy; 2025 <Trans>Psicologa Etica. Tutti i diritti riservati.</Trans></p>
       </footer>
 
       <Script src="/js/script.js" strategy="afterInteractive" />

@@ -1,0 +1,170 @@
+msgid "Psicologa Etica"
+msgstr "Ethical Psychologist"
+
+msgid "Home"
+msgstr "Home"
+
+msgid "Servizi"
+msgstr "Services"
+
+msgid "Percorsi"
+msgstr "Paths"
+
+msgid "Quiz"
+msgstr "Quiz"
+
+msgid "Prenotazione"
+msgstr "Booking"
+
+msgid "Contatti"
+msgstr "Contacts"
+
+msgid "Diario"
+msgstr "Diary"
+
+msgid "psicologia"
+msgstr "psychology"
+
+msgid "sorprendente."
+msgstr "surprising."
+
+msgid "curativa."
+msgstr "healing."
+
+msgid "emozionante."
+msgstr "exciting."
+
+msgid "trasformativa."
+msgstr "transformative."
+
+msgid "potente."
+msgstr "powerful."
+
+msgid "Un progetto rivoluzionario"
+msgstr "A groundbreaking project"
+
+msgid "Scopri un nuovo modo di affrontare il benessere mentale."
+msgstr "Discover a new way to approach mental well-being."
+
+msgid "Percorsi personalizzati"
+msgstr "Personalized paths"
+
+msgid "Ogni passo avanti è una conquista. Nulla è impossibile."
+msgstr "Every step forward is a victory. Nothing is impossible."
+
+msgid "Prenota il tuo incontro"
+msgstr "Book your session"
+
+msgid "Prenota facilmente la tua seduta, in presenza o online."
+msgstr "Schedule your meeting easily, in person or online."
+
+msgid "Il tuo Diario"
+msgstr "Your Journal"
+
+msgid "Scrivi qui il tuo diario..."
+msgstr "Write your journal here..."
+
+msgid "Contattami"
+msgstr "Contact me"
+
+msgid "Scorri in basso per sapere come contattarmi in qualsiasi momento."
+msgstr "Scroll down to find out how to reach me anytime."
+
+msgid "Psicologa Etica. Tutti i diritti riservati."
+msgstr "Ethical Psychologist. All rights reserved."
+
+msgid "Benvenuto nel quiz interattivo!"
+msgstr "Welcome to the interactive quiz!"
+
+msgid "Inserisci la tua email per iniziare un nuovo quiz o riprendere uno precedente. I tuoi progressi verranno salvati nel tuo browser."
+msgstr "Enter your email to start a new quiz or resume a previous one. Your progress will be saved in your browser."
+
+msgid "La tua Email"
+msgstr "Your Email"
+
+msgid "mario.rossi@esempio.com"
+msgstr "john.doe@example.com"
+
+msgid "Inizia o Riprendi Quiz"
+msgstr "Start or Resume Quiz"
+
+msgid "Avvia in modalità Debug"
+msgstr "Start in Debug Mode"
+
+msgid "Pannello Amministratore"
+msgstr "Admin Panel"
+
+msgid "Quiz sulla Terapia Psicologica"
+msgstr "Quiz on Psychological Therapy"
+
+msgid "Progresso area: {currentArea.name}"
+msgstr "Area progress: {currentArea.name}"
+
+msgid "Progresso totale del quiz ({answeredCount} / {domande.length})"
+msgstr "Total quiz progress ({answeredCount} / {domande.length})"
+
+msgid "Indietro"
+msgstr "Back"
+
+msgid "Prossima Domanda"
+msgstr "Next Question"
+
+msgid "Navigazione"
+msgstr "Navigation"
+
+msgid "Termina qui il test"
+msgstr "Finish the test here"
+
+msgid "Meno accurato"
+msgstr "Less accurate"
+
+msgid "Risultati del Tuo Quiz"
+msgstr "Your Quiz Results"
+
+msgid "Hai risposto a {answered} su {tot} domande, con {correct} risposte corrette."
+msgstr "You answered {answered} out of {tot} questions with {correct} correct answers."
+
+msgid "Punteggio complessivo (sulle risposte date):"
+msgstr "Overall score (on answered questions):"
+
+msgid "Punteggi per area (solo aree completate)"
+msgstr "Scores by area (completed only)"
+
+msgid "Aree di miglioramento"
+msgstr "Areas for improvement"
+
+msgid "Aree non completate"
+msgstr "Incomplete areas"
+
+msgid "Per un risultato più accurato, completa anche queste sezioni:"
+msgstr "For more accurate results, complete these sections too:"
+
+msgid "Ottimo! Hai completato tutte le aree con un punteggio più che sufficiente."
+msgstr "Great! You completed all areas with a more than sufficient score."
+
+msgid "Riprendi il quiz per completarlo"
+msgstr "Resume the quiz to finish"
+
+msgid "Salva e Torna all'inizio"
+msgstr "Save and Return to start"
+
+msgid "Torna alla Home"
+msgstr "Back to Home"
+
+msgid "Utenti Registrati (in questo browser)"
+msgstr "Registered Users (in this browser)"
+
+msgid "Nessun utente ha ancora salvato i progressi su questo browser."
+msgstr "No user has saved progress in this browser yet."
+
+msgid "Seleziona un utente per vedere i suoi risultati."
+msgstr "Select a user to view their results."
+
+msgid "Risultati per:"
+msgstr "Results for:"
+
+msgid "Domande risposte:"
+msgstr "Questions answered:"
+
+msgid "Punteggio complessivo:"
+msgstr "Total score:"

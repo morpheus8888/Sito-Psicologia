@@ -1,0 +1,170 @@
+msgid "Psicologa Etica"
+msgstr "Psicologa Etica"
+
+msgid "Home"
+msgstr "Home"
+
+msgid "Servizi"
+msgstr "Servizi"
+
+msgid "Percorsi"
+msgstr "Percorsi"
+
+msgid "Quiz"
+msgstr "Quiz"
+
+msgid "Prenotazione"
+msgstr "Prenotazione"
+
+msgid "Contatti"
+msgstr "Contatti"
+
+msgid "Diario"
+msgstr "Diario"
+
+msgid "psicologia"
+msgstr "psicologia"
+
+msgid "sorprendente."
+msgstr "sorprendente."
+
+msgid "curativa."
+msgstr "curativa."
+
+msgid "emozionante."
+msgstr "emozionante."
+
+msgid "trasformativa."
+msgstr "trasformativa."
+
+msgid "potente."
+msgstr "potente."
+
+msgid "Un progetto rivoluzionario"
+msgstr "Un progetto rivoluzionario"
+
+msgid "Scopri un nuovo modo di affrontare il benessere mentale."
+msgstr "Scopri un nuovo modo di affrontare il benessere mentale."
+
+msgid "Percorsi personalizzati"
+msgstr "Percorsi personalizzati"
+
+msgid "Ogni passo avanti è una conquista. Nulla è impossibile."
+msgstr "Ogni passo avanti è una conquista. Nulla è impossibile."
+
+msgid "Prenota il tuo incontro"
+msgstr "Prenota il tuo incontro"
+
+msgid "Prenota facilmente la tua seduta, in presenza o online."
+msgstr "Prenota facilmente la tua seduta, in presenza o online."
+
+msgid "Il tuo Diario"
+msgstr "Il tuo Diario"
+
+msgid "Scrivi qui il tuo diario..."
+msgstr "Scrivi qui il tuo diario..."
+
+msgid "Contattami"
+msgstr "Contattami"
+
+msgid "Scorri in basso per sapere come contattarmi in qualsiasi momento."
+msgstr "Scorri in basso per sapere come contattarmi in qualsiasi momento."
+
+msgid "Psicologa Etica. Tutti i diritti riservati."
+msgstr "Psicologa Etica. Tutti i diritti riservati."
+
+msgid "Benvenuto nel quiz interattivo!"
+msgstr "Benvenuto nel quiz interattivo!"
+
+msgid "Inserisci la tua email per iniziare un nuovo quiz o riprendere uno precedente. I tuoi progressi verranno salvati nel tuo browser."
+msgstr "Inserisci la tua email per iniziare un nuovo quiz o riprendere uno precedente. I tuoi progressi verranno salvati nel tuo browser."
+
+msgid "La tua Email"
+msgstr "La tua Email"
+
+msgid "mario.rossi@esempio.com"
+msgstr "mario.rossi@esempio.com"
+
+msgid "Inizia o Riprendi Quiz"
+msgstr "Inizia o Riprendi Quiz"
+
+msgid "Avvia in modalità Debug"
+msgstr "Avvia in modalità Debug"
+
+msgid "Pannello Amministratore"
+msgstr "Pannello Amministratore"
+
+msgid "Quiz sulla Terapia Psicologica"
+msgstr "Quiz sulla Terapia Psicologica"
+
+msgid "Progresso area: {currentArea.name}"
+msgstr "Progresso area: {currentArea.name}"
+
+msgid "Progresso totale del quiz ({answeredCount} / {domande.length})"
+msgstr "Progresso totale del quiz ({answeredCount} / {domande.length})"
+
+msgid "Indietro"
+msgstr "Indietro"
+
+msgid "Prossima Domanda"
+msgstr "Prossima Domanda"
+
+msgid "Navigazione"
+msgstr "Navigazione"
+
+msgid "Termina qui il test"
+msgstr "Termina qui il test"
+
+msgid "Meno accurato"
+msgstr "Meno accurato"
+
+msgid "Risultati del Tuo Quiz"
+msgstr "Risultati del Tuo Quiz"
+
+msgid "Hai risposto a {answered} su {tot} domande, con {correct} risposte corrette."
+msgstr "Hai risposto a {answered} su {tot} domande, con {correct} risposte corrette."
+
+msgid "Punteggio complessivo (sulle risposte date):"
+msgstr "Punteggio complessivo (sulle risposte date):"
+
+msgid "Punteggi per area (solo aree completate)"
+msgstr "Punteggi per area (solo aree completate)"
+
+msgid "Aree di miglioramento"
+msgstr "Aree di miglioramento"
+
+msgid "Aree non completate"
+msgstr "Aree non completate"
+
+msgid "Per un risultato più accurato, completa anche queste sezioni:"
+msgstr "Per un risultato più accurato, completa anche queste sezioni:"
+
+msgid "Ottimo! Hai completato tutte le aree con un punteggio più che sufficiente."
+msgstr "Ottimo! Hai completato tutte le aree con un punteggio più che sufficiente."
+
+msgid "Riprendi il quiz per completarlo"
+msgstr "Riprendi il quiz per completarlo"
+
+msgid "Salva e Torna all'inizio"
+msgstr "Salva e Torna all'inizio"
+
+msgid "Torna alla Home"
+msgstr "Torna alla Home"
+
+msgid "Utenti Registrati (in questo browser)"
+msgstr "Utenti Registrati (in questo browser)"
+
+msgid "Nessun utente ha ancora salvato i progressi su questo browser."
+msgstr "Nessun utente ha ancora salvato i progressi su questo browser."
+
+msgid "Seleziona un utente per vedere i suoi risultati."
+msgstr "Seleziona un utente per vedere i suoi risultati."
+
+msgid "Risultati per:"
+msgstr "Risultati per:"
+
+msgid "Domande risposte:"
+msgstr "Domande risposte:"
+
+msgid "Punteggio complessivo:"
+msgstr "Punteggio complessivo:"

@@ -4,11 +4,17 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "lingui compile && next build",
     "start": "next start",
-    "test": "echo \"No tests specified\" && exit 0"
+    "test": "echo \"No tests specified\" && exit 0",
+    "extract": "lingui extract",
+    "compile": "lingui compile"
   },
   "dependencies": {
+    "@lingui/cli": "^5.3.2",
+    "@lingui/core": "^5.3.2",
+    "@lingui/macro": "^5.3.2",
+    "@lingui/react": "^5.3.2",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest"

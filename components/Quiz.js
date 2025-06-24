@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Trans, useLingui } from "@lingui/react";
 import { domande, areaMeta } from '../lib/quizData';
 
 function precomputeAreaData() {
@@ -15,6 +16,7 @@ function getScoreColor(score) {
 
 export default function Quiz() {
   const [page, setPage] = useState('start');
+  const { i18n } = useLingui();
   const [email, setEmail] = useState('');
   const [debugMode, setDebugMode] = useState(false);
   const [current, setCurrent] = useState(0);
@@ -132,9 +134,9 @@ export default function Quiz() {
     const uncompletedAreas = areaMeta.filter((a,i) => areaAns[i] < a.count).map(a => a.name);
     return (
       <div id="result-container">
-        <h2>Risultati del Tuo Quiz</h2>
-        <p>Hai risposto a {answered} su {domande.length} domande, con {correct} risposte corrette.</p>
-        <p><strong>Punteggio complessivo (sulle risposte date): <span style={{color:getScoreColor(totalScore)}}>{totalScore} / 100</span></strong></p>
+        <h2><Trans>Risultati del Tuo Quiz</Trans></h2>
+        <Trans id="Hai risposto a {answered} su {tot} domande, con {correct} risposte corrette." values={{answered, tot: domande.length, correct}} />
+        <p><strong><Trans>Punteggio complessivo (sulle risposte date):</Trans> <span style={{color:getScoreColor(totalScore)}}>{totalScore} / 100</span></strong></p>
         {areaMeta.filter((a,i)=>areaAns[i]===a.count).length>0 && (
           <div>
             <h3>Punteggi per area (solo aree completate)</h3>
@@ -145,22 +147,22 @@ export default function Quiz() {
             </ul>
           </div>
         )}
-        <h3>Aree di miglioramento</h3>
+        <h3><Trans>Aree di miglioramento</Trans></h3>
         {areaMeta.map((a,i)=> areaAns[i]===a.count && areaScores[i]<80 && (
           <div key={i} className="explanation"><strong>{a.name}:</strong> {a.explanation}</div>
         ))}
         {uncompletedAreas.length>0 && (
           <div className="uncompleted-areas">
-            <h3>Aree non completate</h3>
-            <p>Per un risultato più accurato, completa anche queste sezioni:</p>
+            <h3><Trans>Aree non completate</Trans></h3>
+            <p><Trans>Per un risultato più accurato, completa anche queste sezioni:</Trans></p>
             <ul>{uncompletedAreas.map(n=> <li key={n}>{n}</li>)}</ul>
           </div>
         )}
         {uncompletedAreas.length===0 && areaMeta.every((a,i)=>areaAns[i]===a.count && areaScores[i]>=80) && (
-          <p><strong>Ottimo! Hai completato tutte le aree con un punteggio più che sufficiente.</strong></p>
+          <p><strong><Trans>Ottimo! Hai completato tutte le aree con un punteggio più che sufficiente.</Trans></strong></p>
         )}
         {current < domande.length && (
-          <button id="resume-q-btn" className="nav-button" onClick={resumeQuiz}>Riprendi il quiz per completarlo</button>
+          <button id="resume-q-btn" className="nav-button" onClick={resumeQuiz}><Trans>Riprendi il quiz per completarlo</Trans></button>
         )}
         <button id="save-exit-btn" className="nav-button" onClick={()=>saveProgress(true)}>Salva e Torna all'inizio</button>
       </div>
@@ -176,19 +178,19 @@ export default function Quiz() {
     const selected = adminEmail ? JSON.parse(localStorage.getItem(`quiz_progress_${adminEmail}`)) : null;
     return (
       <div id="admin-panel-container">
-        <button className="nav-button" style={{backgroundColor:'#7f8c8d', marginBottom:'1rem'}} onClick={()=>setPage('start')}>Torna alla Home</button>
+        <button className="nav-button" style={{backgroundColor:'#7f8c8d', marginBottom:'1rem'}} onClick={()=>setPage('start')}><Trans>Torna alla Home</Trans></button>
         <div id="admin-panel" className="admin-panel">
           <div id="admin-user-list-container">
-            <h3>Utenti Registrati (in questo browser)</h3>
+            <h3><Trans>Utenti Registrati (in questo browser)</Trans></h3>
             <ul id="admin-user-list">
-              {emails.length===0 && <li>Nessun utente ha ancora salvato i progressi su questo browser.</li>}
+              {emails.length===0 && <li><Trans>Nessun utente ha ancora salvato i progressi su questo browser.</Trans></li>}
               {emails.map(e => (
                 <li key={e} onClick={()=>setAdminEmail(e)} className={adminEmail===e?'active':''}>{e}</li>
               ))}
             </ul>
           </div>
           <div id="admin-result-details">
-            {selected ? generateResultsFromState(selected) : <p>Seleziona un utente per vedere i suoi risultati.</p>}
+            {selected ? generateResultsFromState(selected) : <p><Trans>Seleziona un utente per vedere i suoi risultati.</Trans></p>}
           </div>
         </div>
       </div>
@@ -200,9 +202,9 @@ export default function Quiz() {
     const uncompletedAreas = areaMeta.filter((a,i)=>areaAns[i] < a.count).map(a=>a.name);
     return (
       <div>
-        <h3>Risultati per: {adminEmail}</h3>
-        <p>Domande risposte: {answered} / {domande.length}</p>
-        <p>Punteggio complessivo: <strong style={{color:getScoreColor(totalScore)}}>{totalScore} / 100</strong></p>
+        <h3><Trans>Risultati per:</Trans> {adminEmail}</h3>
+        <p><Trans>Domande risposte:</Trans> {answered} / {domande.length}</p>
+        <p><Trans>Punteggio complessivo:</Trans> <strong style={{color:getScoreColor(totalScore)}}>{totalScore} / 100</strong></p>
       </div>
     );
   };
@@ -213,10 +215,10 @@ export default function Quiz() {
       <p>Inserisci la tua email per iniziare un nuovo quiz o riprendere uno precedente. I tuoi progressi verranno salvati nel tuo browser.</p>
       <div className="form-group" style={{maxWidth:'400px', margin:'1rem auto'}}>
         <label htmlFor="user-email-input">La tua Email</label>
-        <input type="email" id="user-email-input" value={email} onChange={e=>setEmail(e.target.value)} placeholder="mario.rossi@esempio.com" />
+        <input type="email" id="user-email-input" value={email} onChange={e=>setEmail(e.target.value)} placeholder={i18n._("mario.rossi@esempio.com")} />
       </div>
       <div className="nav-column" style={{margin:'auto'}}><div className="nav-buttons">
-        <button className="nav-button" style={{backgroundColor:'#3498db', color:'white'}} onClick={()=>startQuizFlow(false)}>Inizia o Riprendi Quiz</button>
+        <button className="nav-button" style={{backgroundColor:'#3498db', color:'white'}} onClick={()=>startQuizFlow(false)}><Trans>Inizia o Riprendi Quiz</Trans></button>
       </div></div>
       <div className="nav-column" style={{margin:'auto', marginTop:'1rem'}}><div className="nav-buttons">
         <button className="nav-button" style={{backgroundColor:'#c0392b', color:'white'}} onClick={()=>startQuizFlow(true)}>Avvia in modalità Debug</button>
@@ -230,14 +232,14 @@ export default function Quiz() {
 
   return (
     <div id="quiz-wrapper">
-      <h1>Quiz sulla Terapia Psicologica</h1>
+      <h1><Trans>Quiz sulla Terapia Psicologica</Trans></h1>
       {page === 'start' && renderStart()}
       {page === 'quiz' && (
         <>
           <div id="progress-container" className="progress-container">
-            <div className="progress-label" id="area-progress-label">{currentArea ? `Progresso area: ${currentArea.name}` : ''}</div>
+            <div className="progress-label" id="area-progress-label">{currentArea ? i18n._(`Progresso area: ${currentArea.name}`) : ''}</div>
             <div className="progress-bar"><div className="progress-bar-inner" id="area-progress-bar" style={{width:`${Math.round(areaProgress)}%`}}>{Math.round(areaProgress)}%</div></div>
-            <div className="progress-label" id="total-progress-label" style={{marginTop:'0.5rem'}}>{`Progresso totale del quiz (${answeredCount} / ${domande.length})`}</div>
+            <div className="progress-label" id="total-progress-label" style={{marginTop:'0.5rem'}}>{i18n._(`Progresso totale del quiz (${answeredCount} / ${domande.length})`)}</div>
             <div className="progress-bar"><div className="progress-bar-inner total" id="total-progress-bar" style={{width:`${Math.round(totalProgress)}%`}}>{Math.round(totalProgress)}%</div></div>
           </div>
           <div id="quiz-container">
@@ -253,16 +255,16 @@ export default function Quiz() {
           <div id="navigation-container" className="nav-container">
             <div className="nav-column">
               <div className="nav-buttons">
-                {debugMode && current > 0 && <button id="prev-q-btn" className="nav-button" style={{backgroundColor:'#f39c12', marginRight:'10px'}} onClick={previousQuestion}>Indietro</button>}
-                <button id="next-q-btn" className="nav-button" onClick={nextQuestion} disabled={answers[current]===null}>Prossima Domanda</button>
+                {debugMode && current > 0 && <button id="prev-q-btn" className="nav-button" style={{backgroundColor:'#f39c12', marginRight:'10px'}} onClick={previousQuestion}><Trans>Indietro</Trans></button>}
+                <button id="next-q-btn" className="nav-button" onClick={nextQuestion} disabled={answers[current]===null}><Trans>Prossima Domanda</Trans></button>
               </div>
-              <div className="button-note">(Navigazione)</div>
+              <div className="button-note">(<Trans>Navigazione</Trans>)</div>
             </div>
             <div className="nav-column">
               {current > 0 && (
                 <>
-                  <div className="nav-buttons"><button id="end-q-btn" className="nav-button" onClick={terminateAndShowResults}>Termina qui il test</button></div>
-                  <div className="button-note">(Meno accurato)</div>
+                  <div className="nav-buttons"><button id="end-q-btn" className="nav-button" onClick={terminateAndShowResults}><Trans>Termina qui il test</Trans></button></div>
+                  <div className="button-note">(<Trans>Meno accurato</Trans>)</div>
                 </>
               )}
             </div>

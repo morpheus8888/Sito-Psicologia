@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
-import LanguageSwitcher from '../components/LanguageSwitcher';
+import LanguageSwitcher from '../components/LanguageSwitcher.jsx';
 
 const Quiz = dynamic(() => import('../components/Quiz'), { ssr: false });
 
