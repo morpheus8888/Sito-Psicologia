@@ -1,5 +1,8 @@
 import Head from 'next/head';
 import Script from 'next/script';
+import dynamic from 'next/dynamic';
+
+const Quiz = dynamic(() => import('../components/Quiz'), { ssr: false });
 
 export default function Home() {
   return (
@@ -10,6 +13,7 @@ export default function Home() {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;800&display=swap" rel="stylesheet" />
+        <link rel="icon" href="/favicon.svg" />
       </Head>
 
       <header className="menu-top">
@@ -62,7 +66,7 @@ export default function Home() {
       <section className="section section-dark" id="quiz">
         <div className="section-content">
           <h2 className="fade-in"><strong>Quiz</strong></h2>
-          <iframe src="/quiz.html" className="quiz-frame"></iframe>
+          <Quiz />
         </div>
       </section>
 

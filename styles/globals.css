@@ -286,12 +286,6 @@ body.sidebar-expanded {
   font-size: 18px;
 }
 
-/* Iframe del quiz */
-.quiz-frame {
-  width: 100%;
-  height: 80vh;
-  border: none;
-}
 
 /* FOOTER */
 footer {

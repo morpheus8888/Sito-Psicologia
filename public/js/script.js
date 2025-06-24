@@ -1,10 +1,14 @@
-document.addEventListener("DOMContentLoaded", function() {
+function initSiteScripts() {
 
   const fadeInElements = document.querySelectorAll(".fade-in");
   const sections       = document.querySelectorAll(".section");
   const header         = document.querySelector("header");
   const nav            = document.querySelector("nav");
   const toggleButton   = document.querySelector(".toggle-button");
+
+  if (!header || !nav || !toggleButton) {
+    return;
+  }
 
   // Collassa la sidebar di default su schermi piccoli
   if (window.innerWidth <= 768) {
@@ -189,4 +193,10 @@ document.querySelectorAll("nav ul li a").forEach(link => {
 
   // Avvio
   checkVisibility();
-});
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initSiteScripts);
+} else {
+  initSiteScripts();
+}
