@@ -6,6 +6,10 @@ function initSiteScripts() {
   const nav            = document.querySelector("nav");
   const toggleButton   = document.querySelector(".toggle-button");
 
+  if (!header || !nav || !toggleButton) {
+    return;
+  }
+
   // Collassa la sidebar di default su schermi piccoli
   if (window.innerWidth <= 768) {
     header.classList.add("collapsed");
