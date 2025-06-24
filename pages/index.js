@@ -2,8 +2,8 @@ import Head from 'next/head';
 import Script from 'next/script';
 import dynamic from 'next/dynamic';
 import LanguageSwitcher from '../components/LanguageSwitcher.jsx';
-import { Trans } from "@lingui/react";
-import { useLingui } from "@lingui/react";
+import { t } from "@lingui/macro";
+import { Trans, useLingui } from "@lingui/react";
 
 const Quiz = dynamic(() => import('../components/Quiz'), { ssr: false });
 
@@ -63,8 +63,8 @@ export default function Home() {
 
       <section className="section section-darker" id="percorsi">
         <div className="section-content">
-          <h2 className="fade-in"><strong>Percorsi personalizzati</strong></h2>
-          <p className="fade-in">Ogni passo avanti è una conquista. Nulla è impossibile.</p>
+          <h2 className="fade-in"><strong><Trans>Percorsi personalizzati</Trans></strong></h2>
+          <p className="fade-in"><Trans>Ogni passo avanti è una conquista. Nulla è impossibile.</Trans></p>
         </div>
       </section>
 
@@ -77,15 +77,15 @@ export default function Home() {
 
       <section className="section section-darkest" id="prenotazione">
         <div className="section-content">
-          <h2 className="fade-in"><strong>Prenota il tuo incontro</strong></h2>
-          <p className="fade-in">Prenota facilmente la tua seduta, in presenza o online.</p>
+          <h2 className="fade-in"><strong><Trans>Prenota il tuo incontro</Trans></strong></h2>
+          <p className="fade-in"><Trans>Prenota facilmente la tua seduta, in presenza o online.</Trans></p>
         </div>
       </section>
 
       <section className="section section-dark" id="diario">
         <div className="section-content">
-          <h2 className="fade-in"><strong>Il tuo Diario</strong></h2>
-          <textarea id="diarioTextarea" className="diario-textarea fade-in" placeholder={i18n._("Scrivi qui il tuo diario...")}></textarea>
+          <h2 className="fade-in"><strong><Trans>Il tuo Diario</Trans></strong></h2>
+          <textarea id="diarioTextarea" className="diario-textarea fade-in" placeholder={i18n._(t`Scrivi qui il tuo diario...`)}></textarea>
         </div>
       </section>
 

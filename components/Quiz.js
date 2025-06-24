@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { t, msg } from "@lingui/macro";
 import { Trans, useLingui } from "@lingui/react";
 import { domande, areaMeta } from '../lib/quizData';
 
@@ -60,12 +61,12 @@ export default function Quiz() {
   const startQuizFlow = (inDebug) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email.trim())) {
-      alert('Formato email non valido. Per favore, inserisci un indirizzo email corretto (es. nome@dominio.it).');
+      alert(i18n._(msg`Formato email non valido. Per favore, inserisci un indirizzo email corretto (es. nome@dominio.it).`));
       return;
     }
     setDebugMode(inDebug);
     if (loadProgress(email.trim().toLowerCase())) {
-      if (confirm('È stato trovato un progresso salvato per questa email. Vuoi riprendere da dove hai lasciato?')) {
+      if (confirm(i18n._(msg`È stato trovato un progresso salvato per questa email. Vuoi riprendere da dove hai lasciato?`))) {
         setPage('quiz');
       } else {
         setAnswers(Array(domande.length).fill(null));
@@ -139,7 +140,7 @@ export default function Quiz() {
         <p><strong><Trans>Punteggio complessivo (sulle risposte date):</Trans> <span style={{color:getScoreColor(totalScore)}}>{totalScore} / 100</span></strong></p>
         {areaMeta.filter((a,i)=>areaAns[i]===a.count).length>0 && (
           <div>
-            <h3>Punteggi per area (solo aree completate)</h3>
+            <h3><Trans>Punteggi per area (solo aree completate)</Trans></h3>
             <ul>
               {areaMeta.map((a,i)=> areaAns[i]===a.count && (
                 <li key={a.name}>{a.name}: <strong style={{color:getScoreColor(areaScores[i])}}>{areaScores[i]} / 100</strong></li>
@@ -164,7 +165,7 @@ export default function Quiz() {
         {current < domande.length && (
           <button id="resume-q-btn" className="nav-button" onClick={resumeQuiz}><Trans>Riprendi il quiz per completarlo</Trans></button>
         )}
-        <button id="save-exit-btn" className="nav-button" onClick={()=>saveProgress(true)}>Salva e Torna all'inizio</button>
+        <button id="save-exit-btn" className="nav-button" onClick={()=>saveProgress(true)}><Trans>Salva e Torna all'inizio</Trans></button>
       </div>
     );
   };
@@ -211,21 +212,21 @@ export default function Quiz() {
 
   const renderStart = () => (
     <div id="start-screen" style={{textAlign:'center'}}>
-      <h2>Benvenuto nel quiz interattivo!</h2>
-      <p>Inserisci la tua email per iniziare un nuovo quiz o riprendere uno precedente. I tuoi progressi verranno salvati nel tuo browser.</p>
+      <h2><Trans>Benvenuto nel quiz interattivo!</Trans></h2>
+      <p><Trans>Inserisci la tua email per iniziare un nuovo quiz o riprendere uno precedente. I tuoi progressi verranno salvati nel tuo browser.</Trans></p>
       <div className="form-group" style={{maxWidth:'400px', margin:'1rem auto'}}>
-        <label htmlFor="user-email-input">La tua Email</label>
-        <input type="email" id="user-email-input" value={email} onChange={e=>setEmail(e.target.value)} placeholder={i18n._("mario.rossi@esempio.com")} />
+        <label htmlFor="user-email-input"><Trans>La tua Email</Trans></label>
+        <input type="email" id="user-email-input" value={email} onChange={e=>setEmail(e.target.value)} placeholder={i18n._(msg`mario.rossi@esempio.com`)} />
       </div>
       <div className="nav-column" style={{margin:'auto'}}><div className="nav-buttons">
         <button className="nav-button" style={{backgroundColor:'#3498db', color:'white'}} onClick={()=>startQuizFlow(false)}><Trans>Inizia o Riprendi Quiz</Trans></button>
       </div></div>
       <div className="nav-column" style={{margin:'auto', marginTop:'1rem'}}><div className="nav-buttons">
-        <button className="nav-button" style={{backgroundColor:'#c0392b', color:'white'}} onClick={()=>startQuizFlow(true)}>Avvia in modalità Debug</button>
+        <button className="nav-button" style={{backgroundColor:'#c0392b', color:'white'}} onClick={()=>startQuizFlow(true)}><Trans>Avvia in modalità Debug</Trans></button>
       </div></div>
       <hr style={{margin:'2rem 0'}} />
       <div className="nav-column" style={{margin:'auto'}}><div className="nav-buttons">
-        <button className="nav-button" style={{backgroundColor:'#34495e', color:'white'}} onClick={()=>setPage('admin')}>Pannello Amministratore</button>
+        <button className="nav-button" style={{backgroundColor:'#34495e', color:'white'}} onClick={()=>setPage('admin')}><Trans>Pannello Amministratore</Trans></button>
       </div></div>
     </div>
   );
@@ -238,11 +239,11 @@ export default function Quiz() {
         <>
           <div id="progress-container" className="progress-container">
             <div className="progress-label" id="area-progress-label">
-              {currentArea ? i18n._('Progresso area: {name}', { name: currentArea.name }) : ''}
+              {currentArea ? i18n._(msg`Progresso area: {name}`, { name: currentArea.name }) : ''}
             </div>
             <div className="progress-bar"><div className="progress-bar-inner" id="area-progress-bar" style={{width:`${Math.round(areaProgress)}%`}}>{Math.round(areaProgress)}%</div></div>
             <div className="progress-label" id="total-progress-label" style={{marginTop:'0.5rem'}}>
-              {i18n._('Progresso totale del quiz ({answered} / {tot})', { answered: answeredCount, tot: domande.length })}
+              {i18n._(msg`Progresso totale del quiz ({answered} / {tot})`, { answered: answeredCount, tot: domande.length })}
             </div>
             <div className="progress-bar"><div className="progress-bar-inner total" id="total-progress-bar" style={{width:`${Math.round(totalProgress)}%`}}>{Math.round(totalProgress)}%</div></div>
           </div>
