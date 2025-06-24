@@ -30,7 +30,7 @@ input[type="radio"]:checked + span { font-weight: bold; }
 .button-note { font-size: 0.8rem; color: #bbb; margin-top: 4px; }
 #result-container { font-size: 1.1rem; }
 .explanation { margin-top: .5rem; padding: .8rem; background: #fffbe6; border-left: 4px solid #f1c40f; color: #000; }
-.uncompleted-areas { margin-top: 1rem; padding: 1rem; background: #ecf0f1; border-radius: 5px; }
+.uncompleted-areas { margin-top: 1rem; padding: 1rem; background: #ecf0f1; color: #000; border-radius: 5px; }
 .uncompleted-areas h3 { margin-top: 0; }
 ul { list-style-position: inside; padding-left: 0; }
 .form-group { margin-bottom: 1rem; }

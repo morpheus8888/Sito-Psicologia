@@ -1,6 +1,8 @@
 {
-  "localeDir": "locales",
-  "sourceLocale": "it",
   "locales": ["it", "en"],
-  "format": "po"
+  "sourceLocale": "it",
+  "catalogs": [{
+    "path": "locales/{locale}/messages",
+    "format": "po"
+  }]
 }
