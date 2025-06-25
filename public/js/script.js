@@ -4,7 +4,7 @@ function initSiteScripts() {
   const sections       = document.querySelectorAll(".section");
   const header         = document.querySelector("header");
   const nav            = document.querySelector("nav");
-  const toggleButton   = document.querySelector(".toggle-button");
+  const toggleButton   = document.querySelector(".menuBtn");
 
   if (!header || !nav || !toggleButton) {
     return;

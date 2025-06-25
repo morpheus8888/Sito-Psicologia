@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { SessionProvider } from 'next-auth/react';
 import Navbar from '../components/Navbar.jsx';
+import Script from 'next/script';
 
 export default function App({ Component, pageProps }) {
   const { locale } = useRouter();
@@ -24,6 +25,7 @@ export default function App({ Component, pageProps }) {
       <I18nProvider i18n={i18n} forceRenderOnLocaleChange={false}>
         <Navbar />
         <Component {...pageProps} />
+        <Script src="/js/script.js" strategy="lazyOnload" />
       </I18nProvider>
     </SessionProvider>
   );
