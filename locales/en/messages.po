@@ -1,172 +1,254 @@
 msgid ""
 msgstr ""
-msgid "Psicologa Etica"
-msgstr "Ethical Psychologist"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language: \n"
+"Language-Team: \n"
+"Content-Type: \n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
 
-msgid "Home"
-msgstr "Home"
+#. js-lingui-explicit-id
+#: components/Quiz.js:139
+#~ msgid "Hai risposto a {answered} su {tot} domande, con {correct} risposte corrette."
+#~ msgstr ""
 
-msgid "Servizi"
-msgstr "Services"
-
-msgid "Percorsi"
-msgstr "Paths"
-
-msgid "Quiz"
-msgstr "Quiz"
-
-msgid "Prenotazione"
-msgstr "Booking"
-
-msgid "Contatti"
-msgstr "Contacts"
-
-msgid "Diario"
-msgstr "Diary"
-
-msgid "psicologia"
-msgstr "psychology"
-
-msgid "sorprendente."
-msgstr "surprising."
-
-msgid "curativa."
-msgstr "healing."
-
-msgid "emozionante."
-msgstr "exciting."
-
-msgid "trasformativa."
-msgstr "transformative."
-
-msgid "potente."
-msgstr "powerful."
-
-msgid "Un progetto rivoluzionario"
-msgstr "A groundbreaking project"
-
-msgid "Scopri un nuovo modo di affrontare il benessere mentale."
-msgstr "Discover a new way to approach mental well-being."
-
-msgid "Percorsi personalizzati"
-msgstr "Personalized paths"
-
-msgid "Ogni passo avanti è una conquista. Nulla è impossibile."
-msgstr "Every step forward is a victory. Nothing is impossible."
-
-msgid "Prenota il tuo incontro"
-msgstr "Book your session"
-
-msgid "Prenota facilmente la tua seduta, in presenza o online."
-msgstr "Schedule your meeting easily, in person or online."
-
-msgid "Il tuo Diario"
-msgstr "Your Journal"
-
-msgid "Scrivi qui il tuo diario..."
-msgstr "Write your journal here..."
-
-msgid "Contattami"
-msgstr "Contact me"
-
-msgid "Scorri in basso per sapere come contattarmi in qualsiasi momento."
-msgstr "Scroll down to find out how to reach me anytime."
-
-msgid "Psicologa Etica. Tutti i diritti riservati."
-msgstr "Ethical Psychologist. All rights reserved."
-
-msgid "Benvenuto nel quiz interattivo!"
-msgstr "Welcome to the interactive quiz!"
-
-msgid "Inserisci la tua email per iniziare un nuovo quiz o riprendere uno precedente. I tuoi progressi verranno salvati nel tuo browser."
-msgstr "Enter your email to start a new quiz or resume a previous one. Your progress will be saved in your browser."
-
-msgid "La tua Email"
-msgstr "Your Email"
-
-msgid "mario.rossi@esempio.com"
-msgstr "john.doe@example.com"
-
-msgid "Inizia o Riprendi Quiz"
-msgstr "Start or Resume Quiz"
-
-msgid "Avvia in modalità Debug"
-msgstr "Start in Debug Mode"
-
-msgid "Pannello Amministratore"
-msgstr "Admin Panel"
-
-msgid "Quiz sulla Terapia Psicologica"
-msgstr "Quiz on Psychological Therapy"
-
-msgid "Progresso area: {name}"
-msgstr "Area progress: {name}"
-
-msgid "Progresso totale del quiz ({answered} / {tot})"
-msgstr "Total quiz progress ({answered} / {tot})"
-
-msgid "Indietro"
-msgstr "Back"
-
-msgid "Prossima Domanda"
-msgstr "Next Question"
-
-msgid "Navigazione"
-msgstr "Navigation"
-
-msgid "Termina qui il test"
-msgstr "Finish the test here"
-
-msgid "Meno accurato"
-msgstr "Less accurate"
-
-msgid "Risultati del Tuo Quiz"
-msgstr "Your Quiz Results"
-
-msgid "Hai risposto a {answered} su {tot} domande, con {correct} risposte corrette."
-msgstr "You answered {answered} out of {tot} questions with {correct} correct answers."
-
-msgid "Punteggio complessivo (sulle risposte date):"
-msgstr "Overall score (on answered questions):"
-
-msgid "Punteggi per area (solo aree completate)"
-msgstr "Scores by area (completed only)"
-
+#: components/Quiz.js:151
 msgid "Aree di miglioramento"
 msgstr "Areas for improvement"
 
+#: components/Quiz.js:157
 msgid "Aree non completate"
 msgstr "Incomplete areas"
 
-msgid "Per un risultato più accurato, completa anche queste sezioni:"
-msgstr "For more accurate results, complete these sections too:"
+#: components/Quiz.js:225
+msgid "Avvia in modalità Debug"
+msgstr "Start in Debug Mode"
 
-msgid "Ottimo! Hai completato tutte le aree con un punteggio più che sufficiente."
-msgstr "Great! You completed all areas with a more than sufficient score."
+#: components/Quiz.js:215
+msgid "Benvenuto nel quiz interattivo!"
+msgstr "Welcome to the interactive quiz!"
 
-msgid "Riprendi il quiz per completarlo"
-msgstr "Resume the quiz to finish"
+#: pages/index.js:94
+msgid "Contattami"
+msgstr "Contact me"
 
-msgid "Salva e Torna all'inizio"
-msgstr "Save and Return to start"
+#: pages/index.js:35
+msgid "Contatti"
+msgstr "Contacts"
 
-msgid "Torna alla Home"
-msgstr "Back to Home"
+#: pages/index.js:48
+msgid "curativa."
+msgstr "healing."
 
-msgid "Utenti Registrati (in questo browser)"
-msgstr "Registered Users (in this browser)"
+#: pages/index.js:36
+msgid "Diario"
+msgstr "Diary"
 
-msgid "Nessun utente ha ancora salvato i progressi su questo browser."
-msgstr "No user has saved progress in this browser yet."
-
-msgid "Seleziona un utente per vedere i suoi risultati."
-msgstr "Select a user to view their results."
-
-msgid "Risultati per:"
-msgstr "Results for:"
-
+#: components/Quiz.js:207
 msgid "Domande risposte:"
 msgstr "Questions answered:"
 
+#: components/Quiz.js:69
+msgid "È stato trovato un progresso salvato per questa email. Vuoi riprendere da dove hai lasciato?"
+msgstr ""
+
+#: pages/index.js:49
+msgid "emozionante."
+msgstr "exciting."
+
+#: components/Quiz.js:64
+msgid "Formato email non valido. Per favore, inserisci un indirizzo email corretto (es. nome@dominio.it)."
+msgstr ""
+
+#: components/Quiz.js:139
+msgid "Hai risposto a {answered} su {tot} domande, con {correct} risposte corrette."
+msgstr "You answered {answered} out of {tot} questions with {correct} correct answers."
+
+#: pages/index.js:30
+msgid "Home"
+msgstr "Home"
+
+#: pages/index.js:87
+msgid "Il tuo Diario"
+msgstr "Your Journal"
+
+#: components/Quiz.js:263
+msgid "Indietro"
+msgstr "Back"
+
+#: components/Quiz.js:222
+msgid "Inizia o Riprendi Quiz"
+msgstr "Start or Resume Quiz"
+
+#: components/Quiz.js:216
+msgid "Inserisci la tua email per iniziare un nuovo quiz o riprendere uno precedente. I tuoi progressi verranno salvati nel tuo browser."
+msgstr "Enter your email to start a new quiz or resume a previous one. Your progress will be saved in your browser."
+
+#: components/Quiz.js:218
+msgid "La tua Email"
+msgstr "Your Email"
+
+#: components/Quiz.js:219
+msgid "mario.rossi@esempio.com"
+msgstr "john.doe@example.com"
+
+#: components/Quiz.js:272
+msgid "Meno accurato"
+msgstr "Less accurate"
+
+#: components/Quiz.js:266
+msgid "Navigazione"
+msgstr "Navigation"
+
+#: components/Quiz.js:187
+msgid "Nessun utente ha ancora salvato i progressi su questo browser."
+msgstr "No user has saved progress in this browser yet."
+
+#: pages/index.js:67
+msgid "Ogni passo avanti è una conquista. Nulla è impossibile."
+msgstr "Every step forward is a victory. Nothing is impossible."
+
+#: components/Quiz.js:163
+msgid "Ottimo! Hai completato tutte le aree con un punteggio più che sufficiente."
+msgstr "Great! You completed all areas with a more than sufficient score."
+
+#: components/Quiz.js:229
+msgid "Pannello Amministratore"
+msgstr "Admin Panel"
+
+#: components/Quiz.js:158
+msgid "Per un risultato più accurato, completa anche queste sezioni:"
+msgstr "For more accurate results, complete these sections too:"
+
+#: pages/index.js:32
+msgid "Percorsi"
+msgstr "Paths"
+
+#: pages/index.js:66
+msgid "Percorsi personalizzati"
+msgstr "Personalized paths"
+
+#: pages/index.js:51
+msgid "potente."
+msgstr "powerful."
+
+#: pages/index.js:81
+msgid "Prenota facilmente la tua seduta, in presenza o online."
+msgstr "Schedule your meeting easily, in person or online."
+
+#: pages/index.js:80
+msgid "Prenota il tuo incontro"
+msgstr "Book your session"
+
+#: pages/index.js:34
+msgid "Prenotazione"
+msgstr "Booking"
+
+#: components/Quiz.js:242
+msgid "Progresso area: {name}"
+msgstr "Area progress: {name}"
+
+#: components/Quiz.js:246
+msgid "Progresso totale del quiz ({answered} / {tot})"
+msgstr "Total quiz progress ({answered} / {tot})"
+
+#: components/Quiz.js:264
+msgid "Prossima Domanda"
+msgstr "Next Question"
+
+#: pages/index.js:15
+msgid "Psicologa Etica"
+msgstr "Ethical Psychologist"
+
+#: pages/index.js:123
+msgid "Psicologa Etica. Tutti i diritti riservati."
+msgstr "Ethical Psychologist. All rights reserved."
+
+#: pages/index.js:45
+msgid "psicologia"
+msgstr "psychology"
+
+#: components/Quiz.js:143
+msgid "Punteggi per area (solo aree completate)"
+msgstr "Scores by area (completed only)"
+
+#: components/Quiz.js:140
+msgid "Punteggio complessivo (sulle risposte date):"
+msgstr "Overall score (on answered questions):"
+
+#: components/Quiz.js:208
 msgid "Punteggio complessivo:"
 msgstr "Total score:"
+
+#: pages/index.js:33
+#: pages/index.js:73
+msgid "Quiz"
+msgstr "Quiz"
+
+#: components/Quiz.js:236
+msgid "Quiz sulla Terapia Psicologica"
+msgstr "Quiz on Psychological Therapy"
+
+#: components/Quiz.js:166
+msgid "Riprendi il quiz per completarlo"
+msgstr "Resume the quiz to finish"
+
+#: components/Quiz.js:138
+msgid "Risultati del Tuo Quiz"
+msgstr "Your Quiz Results"
+
+#: components/Quiz.js:206
+msgid "Risultati per:"
+msgstr "Results for:"
+
+#: components/Quiz.js:168
+msgid "Salva e Torna all'inizio"
+msgstr "Save and Return to start"
+
+#: pages/index.js:60
+msgid "Scopri un nuovo modo di affrontare il benessere mentale."
+msgstr "Discover a new way to approach mental well-being."
+
+#: pages/index.js:95
+msgid "Scorri in basso per sapere come contattarmi in qualsiasi momento."
+msgstr "Scroll down to find out how to reach me anytime."
+
+#: pages/index.js:88
+msgid "Scrivi qui il tuo diario..."
+msgstr "Write your journal here..."
+
+#: components/Quiz.js:194
+msgid "Seleziona un utente per vedere i suoi risultati."
+msgstr "Select a user to view their results."
+
+#: pages/index.js:31
+msgid "Servizi"
+msgstr "Services"
+
+#: pages/index.js:47
+msgid "sorprendente."
+msgstr "surprising."
+
+#: components/Quiz.js:271
+msgid "Termina qui il test"
+msgstr "Finish the test here"
+
+#: components/Quiz.js:182
+msgid "Torna alla Home"
+msgstr "Back to Home"
+
+#: pages/index.js:50
+msgid "trasformativa."
+msgstr "transformative."
+
+#: pages/index.js:59
+msgid "Un progetto rivoluzionario"
+msgstr "A groundbreaking project"
+
+#: components/Quiz.js:185
+msgid "Utenti Registrati (in questo browser)"
+msgstr "Registered Users (in this browser)"

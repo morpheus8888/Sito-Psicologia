@@ -3,6 +3,11 @@
   "sourceLocale": "it",
   "catalogs": [{
     "path": "locales/{locale}/messages",
-    "format": "po"
+    "format": "po",
+    "include": [
+      "pages",
+      "components",
+      "lib"
+    ]
   }]
 }

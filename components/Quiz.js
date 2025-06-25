@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { t, msg } from "@lingui/macro";
-import { Trans, useLingui } from "@lingui/react";
+import { t, msg, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import { domande, areaMeta } from '../lib/quizData';
 
 function precomputeAreaData() {
@@ -136,7 +136,7 @@ export default function Quiz() {
     return (
       <div id="result-container">
         <h2><Trans>Risultati del Tuo Quiz</Trans></h2>
-        <Trans id="Hai risposto a {answered} su {tot} domande, con {correct} risposte corrette." values={{answered, tot: domande.length, correct}} />
+        <Trans>Hai risposto a {answered} su {tot} domande, con {correct} risposte corrette.</Trans>
         <p><strong><Trans>Punteggio complessivo (sulle risposte date):</Trans> <span style={{color:getScoreColor(totalScore)}}>{totalScore} / 100</span></strong></p>
         {areaMeta.filter((a,i)=>areaAns[i]===a.count).length>0 && (
           <div>

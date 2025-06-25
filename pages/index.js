@@ -2,8 +2,8 @@ import Head from 'next/head';
 import Script from 'next/script';
 import dynamic from 'next/dynamic';
 import LanguageSwitcher from '../components/LanguageSwitcher.jsx';
-import { t } from "@lingui/macro";
-import { Trans, useLingui } from "@lingui/react";
+import { t, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 
 const Quiz = dynamic(() => import('../components/Quiz'), { ssr: false });
 
