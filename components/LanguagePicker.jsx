@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import styles from './LanguagePicker.module.css';
 
 export default function LanguagePicker() {
-  const router = useRouter();
-  const { locale, asPath } = router;
+  const pathname = usePathname() || '/';
+  const locale = pathname.startsWith('/en') ? 'en' : 'it';
+  const asPath = pathname.replace(/^\/(en|it)/, '') || '/';
   const [open, setOpen] = useState(false);
 
   const langs = [
