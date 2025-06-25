@@ -4,7 +4,11 @@ function initSiteScripts() {
   const sections       = document.querySelectorAll(".section");
   const header         = document.querySelector("header");
   const nav            = document.querySelector("nav");
-  const toggleButton   = document.querySelector(".toggle-button");
+  const toggleButton   = document.querySelector(".menuBtn");
+
+  if (!header || !nav || !toggleButton) {
+    return;
+  }
 
   // Collassa la sidebar di default su schermi piccoli
   if (window.innerWidth <= 768) {
@@ -26,11 +30,18 @@ function initSiteScripts() {
   }
 
   // Testo da scrivere con l'effetto typewriter
-  var aText = [
-    "Numero di telefono: 123456789",
-    "Email: contatto@example.com",
-    "Puoi scrivermi in qualsiasi momento!"
-  ];
+  const lang = document.documentElement.lang || 'it';
+  var aText = lang === 'en'
+    ? [
+        'Phone number: 123456789',
+        'Email: contact@example.com',
+        'Feel free to write me anytime!'
+      ]
+    : [
+        'Numero di telefono: 123456789',
+        'Email: contatto@example.com',
+        'Puoi scrivermi in qualsiasi momento!'
+      ];
   var iSpeed = 100; 
   var iIndex = 0;   
   var iArrLength = aText[0].length; 

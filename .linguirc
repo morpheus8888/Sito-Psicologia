@@ -1,0 +1,13 @@
+{
+  "locales": ["it", "en"],
+  "sourceLocale": "it",
+  "catalogs": [{
+    "path": "locales/{locale}/messages",
+    "format": "po",
+    "include": [
+      "pages",
+      "components",
+      "lib"
+    ]
+  }]
+}
