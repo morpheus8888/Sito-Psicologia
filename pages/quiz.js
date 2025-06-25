@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
-import LanguageSwitcher from '../components/LanguageSwitcher.jsx';
+import LanguagePicker from '../components/LanguagePicker.jsx';
 
 const Quiz = dynamic(() => import('../components/Quiz'), { ssr: false });
 
@@ -14,7 +14,7 @@ export default function QuizPage() {
         <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;800&display=swap" rel="stylesheet" />
         <link rel="icon" href="/favicon.svg" />
       </Head>
-      <LanguageSwitcher />
+      <LanguagePicker />
       <Quiz />
     </>
   );

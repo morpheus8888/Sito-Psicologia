@@ -1,0 +1,39 @@
+.picker {
+  position: relative;
+  margin-left: auto;
+  z-index: 1100;
+}
+
+.button {
+  background: rgba(52,73,94,0.9);
+  color: #fff;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.dropdown {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background: #fff;
+  color: #000;
+  list-style: none;
+  margin: 0;
+  padding: 0.2rem 0;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.item a {
+  display: block;
+  padding: 0.3rem 0.8rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.item a:hover {
+  background: #f0f0f0;
+}
