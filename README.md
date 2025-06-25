@@ -31,3 +31,19 @@ These are the main ideas for the project: a private diary with prompts, content
 recommendations, a psychological vocabulary section, self‑assessment tests, an
 appointment booking system and advanced analytics (Google Analytics, Microsoft
 Clarity).
+
+## Database
+
+Create the `users` table with this SQL:
+
+```sql
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+CREATE TABLE users (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  email TEXT UNIQUE NOT NULL,
+  password TEXT NOT NULL,
+  name TEXT,
+  created_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+```

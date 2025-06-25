@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import Script from 'next/script';
 import dynamic from 'next/dynamic';
-import LanguagePicker from '../components/LanguagePicker.jsx';
 import { t, Trans } from "@lingui/macro";
 import { useLingui } from "@lingui/react";
 
@@ -19,23 +18,6 @@ export default function Home() {
         <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;800&display=swap" rel="stylesheet" />
         <link rel="icon" href="/favicon.svg" />
       </Head>
-      <header className="menu-top">
-        <div className="header-bar">
-          <button className="toggle-button">☰</button>
-          <LanguagePicker />
-        </div>
-        <nav>
-          <ul>
-            <li id="home"><a href="#home"><Trans>Home</Trans></a></li>
-            <li id="servizi"><a href="#servizi"><Trans>Servizi</Trans></a></li>
-            <li id="percorsi"><a href="#percorsi"><Trans>Percorsi</Trans></a></li>
-            <li id="quiz"><a href="#quiz"><Trans>Quiz</Trans></a></li>
-            <li id="prenotazione"><a href="#prenotazione"><Trans>Prenotazione</Trans></a></li>
-            <li id="contatti"><a href="#contatti"><Trans>Contatti</Trans></a></li>
-            <li id="diario"><a href="#diario"><Trans>Diario</Trans></a></li>
-          </ul>
-        </nav>
-      </header>
 
       <section className="hero-section" id="home">
         <img src="/images/background.png" alt="Hero Image" className="hero-img" />

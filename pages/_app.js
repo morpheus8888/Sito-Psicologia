@@ -4,6 +4,8 @@ import { I18nProvider } from '@lingui/react';
 import { i18n } from '@lingui/core';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import { SessionProvider } from 'next-auth/react';
+import NavBar from '../components/NavBar.jsx';
 
 export default function App({ Component, pageProps }) {
   const { locale } = useRouter();
@@ -18,8 +20,11 @@ export default function App({ Component, pageProps }) {
   }, [locale]);
 
   return (
-    <I18nProvider i18n={i18n} forceRenderOnLocaleChange={false}>
-      <Component {...pageProps} />
-    </I18nProvider>
+    <SessionProvider session={pageProps.session}>
+      <I18nProvider i18n={i18n} forceRenderOnLocaleChange={false}>
+        <NavBar />
+        <Component {...pageProps} />
+      </I18nProvider>
+    </SessionProvider>
   );
 }

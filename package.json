@@ -15,7 +15,10 @@
     "@lingui/core": "^5.3.2",
     "@lingui/macro": "^5.3.2",
     "@lingui/react": "^5.3.2",
+    "bcryptjs": "^3.0.2",
     "next": "latest",
+    "next-auth": "^4.24.11",
+    "pg": "^8.16.2",
     "react": "latest",
     "react-dom": "latest"
   }
